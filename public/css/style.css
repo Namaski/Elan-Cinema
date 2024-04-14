@@ -1,444 +1,238 @@
-*{
+/* GENERAL */
+
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  
 }
 
-.index {
-    background: #001D3D;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90rem;
-    box-sizing: border-box;
-  }
-  .index .logo {
-    margin-right: 1.8rem;
-    width: 17.6rem;
-    overflow-wrap: break-word;
-    font-family: 'Post No Bills Jaffna ExtraBold', 'Roboto Condensed';
-    font-weight: 800;
-    font-size: 3rem;
-    color: #FFC300;
-  }
-  .index .search-bar {
-    background: url('../assets/images/searchBar.png') 50% / contain no-repeat;
-    position: absolute;
-    right: 0rem;
-    bottom: 0rem;
-    width: 7.9rem;
-    height: 6rem;
-  }
-  .index .rectangle-14 {
-    border-radius: 0.6rem 0 0 0.6rem;
-    background: #FFFFFF;
-    position: relative;
-    width: 12.5rem;
-    height: 3rem;
-  }
-  .index .vector-2 {
-    position: absolute;
-    top: 7rem;
-    right: 1.6rem;
-    width: 3rem;
-    height: 3rem;
-  }
-  .index .watch-the-trailer {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 195, 0, 0.7);
-  }
-  .index .vector-3 {
-    position: absolute;
-    top: 7rem;
-    right: 1.2rem;
-    width: 3rem;
-    height: 3rem;
-  }
-  .index .watch-the-trailer-1 {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 195, 0, 0.7);
-  }
-  .index .vector-4 {
-    position: absolute;
-    top: 7rem;
-    right: 1.3rem;
-    width: 3rem;
-    height: 3rem;
-  }
-  .index .watch-the-trailer-2 {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 195, 0, 0.7);
-  }
-  .index .rectangle-7 {
-    background: url('../assets/images/rectangle7.png');
-    width: 2.5rem;
-    height: 10rem;
-  }
-  .index .watch-the-trailer-3 {
-    position: absolute;
-    left: 0.1rem;
-    bottom: 2.6rem;
-    text-align: justify;
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: #FFFFFF;
-  }
-  .watch-the-trailer-3 {
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.333;
-  }
-  .index .vector-5 {
-    position: absolute;
-    right: 4.4rem;
-    bottom: 0.9rem;
-    width: 4.6rem;
-    height: 5rem;
-  }
-  .index .action {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 195, 0, 0.7);
-  }
-  .index .horror {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 195, 0, 0.7);
-  }
-  .index .comedy {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 195, 0, 0.7);
-  }
-  .index .fantasy {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 195, 0, 0.7);
-  }
-  .index .vector-6 {
-    position: absolute;
-    top: 7rem;
-    right: 1.6rem;
-    width: 3rem;
-    height: 3rem;
-  }
-  .index .watch-the-trailer-4 {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255, 195, 0, 0.7);
-  }
-  .index .search-bar-1 {
-    position: relative;
-    margin: 0.1rem 0;
-    padding: 1.5rem 0;
-    width: 17.6rem;
-    height: 6rem;
-    box-sizing: border-box;
-  }
-  .index .header {
-    background: var(--header-footer, linear-gradient(180deg, rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 29, 61, 0.2), rgba(0, 29, 61, 0.2)));
-    margin-bottom: 3.1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 3rem 0 3.1rem;
-    width: 90rem;
-    box-sizing: border-box;
-  }
-  .index .section-1 {
-    margin-bottom: 1.2rem;
-    display: flex;
-    flex-direction: row;
-    width: 42.5rem;
-    box-sizing: border-box;
-  }
-  .index .genre-box {
-    background: url('../assets/images/rectangle82.png') 50% / cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 7.8rem 0 0.8rem 0.6rem;
-    width: 21.2rem;
-    box-sizing: border-box;
-  }
-  .index .genre-box-1 {
-    background: url('../assets/images/rectangle5.png');
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 7.8rem 0rem 0.8rem 0;
-    width: 21.2rem;
-    box-sizing: border-box;
-  }
-  .index .genre-box-2 {
-    background: url('../assets/images/rectangle83.png') 50% / cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 7.8rem 0rem 0.8rem 0;
-    width: 21.2rem;
-    box-sizing: border-box;
-  }
-  .index .genre-box-3 {
-    background: url('../assets/images/rectangle81.png') 50% / cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 7.8rem 0.1rem 0.8rem 0;
-    width: 21.2rem;
-    box-sizing: border-box;
-  }
-  .index .genre-list {
-    margin-bottom: 1.2rem;
-    display: flex;
-    flex-direction: row;
-    column-gap: 0.7rem;
-    width: 90rem;
-    box-sizing: border-box;
-  }
-  .index .section-2 {
-    margin-bottom: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    box-sizing: border-box;
-  }
-  .index .fans-movie {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 21.2rem;
-    box-sizing: border-box;
-  }
-  .index .fans-movie-1 {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 21.2rem;
-    box-sizing: border-box;
-  }
-  .index .fans-movie-2 {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 21.2rem;
-    box-sizing: border-box;
-  }
-  .index .fans-movie-3 {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 21.2rem;
-    box-sizing: border-box;
-  }
-  .index .fans-list {
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: row;
-    column-gap: 0.7rem;
-    width: 90rem;
-    box-sizing: border-box;
-  }
-  .index .section-3 {
-    margin-bottom: 1.1rem;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    box-sizing: border-box;
-  }
-  .index .footer {
-    background: linear-gradient(180deg, rgba(0, 29, 61, 0.35) -25%, rgba(0, 29, 61, 0.35) 2.5%, rgba(0, 8, 20, 0.35) 40%, rgba(0, 8, 20, 0.35) 68.75%, rgba(0, 8, 20, 0.35) 100%);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 1.6rem 0 1.6rem 0.1rem;
-    width: 90rem;
-    box-sizing: border-box;
-  }
-  .index .admin-logo {
-    width: 6.3rem;
-    height: 6.3rem;
-  }
-  .index .navbar {
-    margin: 1rem 0 0.4rem 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 26.4rem;
-    height: fit-content;
-    box-sizing: border-box;
-  }
-  .index .home {
-    margin-right: 1rem;
-    width: 6.1rem;
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: #FFFFFF;
-  }
-  .index .genre {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: #FFFFFF;
-  }
-  .index .browse {
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: #FFFFFF;
-  }
-  .index .top {
-    margin-right: 0rem;
-    overflow-wrap: break-word;
-    font-family: 'Manrope';
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: #FFFFFF;
-  }
-  .index .choose-agenre {
-    margin-bottom: 1.2rem;
-    display: inline-block;
-    align-self: flex-start;
-    overflow-wrap: break-word;
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 1.5rem;
-    color: #FFFFFF;
-  }
-  .index .rectangle-71 {
-    background: url('../assets/images/rectangle71.png');
-    width: 2.5rem;
-    height: 10rem;
-  }
-  .index .line-1 {
-    background: #FFC300;
-    width: 90rem;
-    height: 0.1rem;
-  }
-  .index .fan-favorites {
-    margin-bottom: 1rem;
-    display: inline-block;
-    align-self: flex-start;
-    overflow-wrap: break-word;
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 1.5rem;
-    color: #FFFFFF;
-  }
-  .index .line-11 {
-    background: #FFC300;
-    width: 90rem;
-    height: 0.1rem;
-  }
-  .index .filmopedia {
-    overflow-wrap: break-word;
-    font-family: 'Inter';
-    font-weight: 400;
-    font-size: 1.5rem;
-    color: rgba(255, 195, 0, 0.5);
-  }
-  .index .arrow-1 {
-    background: rgba(255, 195, 0, 0.4);
-    margin: 9.4rem 0 9.1rem 0;
-    width: 2.5rem;
-    height: 0.3rem;
-  }
-  .index .arrow-2 {
-    background: rgba(255, 195, 0, 0.4);
-    margin: 9.4rem 0 9.1rem 0;
-    width: 2.5rem;
-    height: 0.3rem;
-  }
-  .index .container {
-    margin: 1.1rem 0 1.7rem 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 45.7rem;
-    height: fit-content;
-    box-sizing: border-box;
-  }
-  .index .container-1 {
-    background: url('../assets/images/rectangle51.png') 50% / cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 7.8rem 0 0.8rem 1.7rem;
-    width: 21.2rem;
-    height: fit-content;
-    box-sizing: border-box;
-  }
-  .index .container-2 {
-    background: url('../assets/images/rectangle4.png') 50% / cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 7.8rem 0.1rem 0.8rem 0;
-    width: 21.2rem;
-    height: fit-content;
-    box-sizing: border-box;
-  }
-  .index .container-3 {
-    background: url('../assets/images/rectangle6.png') 50% / cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 7.8rem 0 0.8rem 1.7rem;
-    width: 21.2rem;
-    height: fit-content;
-    box-sizing: border-box;
-  }
-  .index .container-4 {
-    background: url('../assets/images/rectangle8.png') 50% / contain no-repeat;
-    position: relative;
-    width: 37.5rem;
-    height: 18.8rem;
-  }
-  .index .container-5 {
-    background: url('../assets/images/rectangle3.png') 50% / cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 7.8rem 0.1rem 0.8rem 0;
-    width: 21.2rem;
-    height: fit-content;
-    box-sizing: border-box;
-  }
+body {
+  background: #013565;
+}
+
+/* HEADER */
+
+header {
+  background: linear-gradient(180deg, rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 29, 61, 0.2), rgba(1, 49, 94, 0.2), rgba(1, 53, 101, 0.2));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.logo {
+  font-family: 'Post No Bills Jaffna ExtraBold', 'Roboto Condensed';
+  font-weight: 800;
+  font-size: 3rem;
+  color: #FFC300;
+}
+
+.navbar {
+  font-family: 'Manrope';
+  width: 40vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navbar li {
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 1.5rem;
+  list-style-type: none;
+}
+
+.navbar li a {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.admin-logo {
+  width: 6.3rem;
+  height: 6.3rem;
+}
+
+/* SEARCBAR SECTION */
+
+.searchbar-background {
+  height: 70vh;
+  background: url('../img/rectangle15.jpeg');
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchbar-section {
+  position: relative;
+  
+}
+
+#search {
+  width: 40rem;
+  height: 4rem;
+  border-radius: 20px;
+  border: none;
+  padding: 1.5rem;
+}
+
+#send {
+  position: absolute;
+  background-color: #ffc300;
+  color: #013565;
+  right: 0;
+  font-size: 1.6013565em;
+  height: 4rem;
+  width: 6rem;
+  border-radius: 20px;
+  border: 2px solid #00030a;
+}
+
+
+/* GENRE SECTION */
+
+.section-2 {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  
+}
+
+.action {
+  margin-top: 5.3rem;
+  display: inline-block;
+  overflow-wrap: break-word;
+  font-family: 'Manrope';
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 195, 0, 0.7);
+}
+.horror {
+  overflow-wrap: break-word;
+  font-family: 'Manrope';
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 195, 0, 0.7);
+}
+.comedy {
+  overflow-wrap: break-word;
+  font-family: 'Manrope';
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 195, 0, 0.7);
+}
+.fantasy {
+  overflow-wrap: break-word;
+  font-family: 'Manrope';
+  font-weight: 700;
+  font-size: 1rem;
+  color: rgba(255, 195, 0, 0.7);
+}
+
+
+.search-bar-1 {
+  position: relative;
+  padding: 3rem 0;
+  width: 37rem;
+  height: 12rem;
+  
+}
+
+.genre-box {
+  background: url('../img/rectangle82.png') 50% / cover no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 7.8rem 0 0.8rem 0.6rem;
+  width: 21.2rem;
+  
+}
+.genre-box-1 {
+  background: url('../img/rectangle5.png');
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 7.8rem 0rem 0.8rem 0;
+  width: 21.2rem;
+  
+}
+.genre-box-2 {
+  background: url('../img/rectangle83.png') 50% / cover no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 7.8rem 0rem 0.8rem 0;
+  width: 21.2rem;
+  
+}
+.genre-box-3 {
+  background: url('../img/rectangle81.png') 50% / cover no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding: 2.5rem 0 0.8rem 2rem;
+  width: 21.2rem;
+  
+}
+.genre-list {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.7rem;
+  width: fit-content;
+  
+}
+
+.choose-agenre {
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #FFFFFF;
+}
+.rectangle-7 {
+  background: url('../img/rectangle7.png');
+  width: 2.5rem;
+  height: 10rem;
+}
+.line-1 {
+  background: #FFC300;
+  height: 0.1rem;
+}
+.filmopedia {
+  overflow-wrap: break-word;
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: rgba(255, 195, 0, 0.5);
+}
+.arrow-1 {
+  position: absolute;
+  right: 0rem;
+  bottom: 3.1rem;
+  width: 2.5rem;
+  height: 1.9rem;
+}
+.arrow-2 {
+  margin: 0 4.4rem 4.2rem 0;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+/* FOOTER */
+
+.footer {
+  background: linear-gradient(180deg, rgba(1, 53, 101, 0.2), rgba(1, 49, 94, 0.2), rgba(0, 29, 61, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2));
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1.6rem 0 1.6rem 0.1rem;
+  
+}
