@@ -21,13 +21,9 @@
   <div class="list-container">
 
     <?php
-    
     foreach ($requete->fetchall() as $element) { ?>
       <div class="list-element">
-        <a href="index.php?action=movie&title=<?=$element["titre"]?>">
-          <p><?= $element["titre"] ?></p>
-          <p><?= "(" . $element["date"] . ")" ?></p>
-        </a>
+        <p><?= $element["director"] ?></p>
       </div>
     <?php } ?>
 

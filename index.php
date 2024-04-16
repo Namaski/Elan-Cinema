@@ -11,13 +11,26 @@ $ctrlCinema = new CinemaController();
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'actor':
-            $ctrlCinema->listActors();
+            if (isset($_GET['actor'])) {
+                $ctrlCinema->showActor();
+            } else {
+                $ctrlCinema->listActors();
+            }
             break;
         case 'movie':
-            $ctrlCinema->listMovies();
+            if (isset($_GET['title'])) {
+                $ctrlCinema->showMovie();
+            } else {
+                $ctrlCinema->listMovies();
+            }
             break;
         case 'director':
-            $ctrlCinema->listDirectors();
+            if (isset($_GET['director'])) {
+                $ctrlCinema->showDirector();
+            } else {
+                $ctrlCinema->listDirectors();
+            }
+            
             break;
         
     }

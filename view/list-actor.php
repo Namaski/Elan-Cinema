@@ -23,7 +23,9 @@
     <?php
     foreach ($requete->fetchall() as $element) { ?>
       <div class="list-element">
-        <p><?= $element["actors"] ?></p>
+      <a href="index.php?action=actor&actor=<?=$element["actor"] ?>">
+          <p><?= $element["actor"] ?></p>
+      </a>
       </div>
     <?php } ?>
 
