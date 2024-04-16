@@ -4,13 +4,13 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  
 }
 
 body {
   background: #013565;
 }
 
+/******************** TEMPLATE *****************/
 /* HEADER */
 
 header {
@@ -30,7 +30,7 @@ header {
 
 .navbar {
   font-family: 'Manrope';
-  width: 40vw;
+  min-width: 350px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -53,6 +53,19 @@ header {
   height: 6.3rem;
 }
 
+/* FOOTER */
+
+.footer {
+  background: linear-gradient(180deg, rgba(1, 53, 101, 0.2), rgba(1, 49, 94, 0.2), rgba(0, 29, 61, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2));
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1.6rem 0 1.6rem 0.1rem;
+
+}
+
+/******************** HOME *****************/
+
 /* SEARCBAR SECTION */
 
 .searchbar-background {
@@ -66,7 +79,7 @@ header {
 
 .searchbar-section {
   position: relative;
-  
+
 }
 
 #search {
@@ -97,7 +110,7 @@ header {
   display: flex;
   flex-direction: column;
   width: fit-content;
-  
+
 }
 
 .action {
@@ -109,6 +122,7 @@ header {
   font-size: 1rem;
   color: rgba(255, 195, 0, 0.7);
 }
+
 .horror {
   overflow-wrap: break-word;
   font-family: 'Manrope';
@@ -116,6 +130,7 @@ header {
   font-size: 1rem;
   color: rgba(255, 195, 0, 0.7);
 }
+
 .comedy {
   overflow-wrap: break-word;
   font-family: 'Manrope';
@@ -123,21 +138,13 @@ header {
   font-size: 1rem;
   color: rgba(255, 195, 0, 0.7);
 }
+
 .fantasy {
   overflow-wrap: break-word;
   font-family: 'Manrope';
   font-weight: 700;
   font-size: 1rem;
   color: rgba(255, 195, 0, 0.7);
-}
-
-
-.search-bar-1 {
-  position: relative;
-  padding: 3rem 0;
-  width: 37rem;
-  height: 12rem;
-  
 }
 
 .genre-box {
@@ -148,8 +155,8 @@ header {
   justify-content: center;
   padding: 7.8rem 0 0.8rem 0.6rem;
   width: 21.2rem;
-  
 }
+
 .genre-box-1 {
   background: url('../img/rectangle5.png');
   position: relative;
@@ -158,8 +165,9 @@ header {
   justify-content: center;
   padding: 7.8rem 0rem 0.8rem 0;
   width: 21.2rem;
-  
+
 }
+
 .genre-box-2 {
   background: url('../img/rectangle83.png') 50% / cover no-repeat;
   position: relative;
@@ -168,8 +176,9 @@ header {
   justify-content: center;
   padding: 7.8rem 0rem 0.8rem 0;
   width: 21.2rem;
-  
+
 }
+
 .genre-box-3 {
   background: url('../img/rectangle81.png') 50% / cover no-repeat;
   position: relative;
@@ -177,15 +186,15 @@ header {
   flex-direction: row;
   padding: 2.5rem 0 0.8rem 2rem;
   width: 21.2rem;
-  
+
 }
+
 .genre-list {
   margin-bottom: 1.2rem;
   display: flex;
   flex-direction: row;
   column-gap: 0.7rem;
   width: fit-content;
-  
 }
 
 .choose-agenre {
@@ -198,41 +207,45 @@ header {
   font-size: 1.5rem;
   color: #FFFFFF;
 }
+
 .rectangle-7 {
   background: url('../img/rectangle7.png');
   width: 2.5rem;
   height: 10rem;
 }
+
 .line-1 {
   background: #FFC300;
   height: 0.1rem;
 }
-.filmopedia {
-  overflow-wrap: break-word;
-  font-family: 'Inter';
-  font-weight: 400;
-  font-size: 1.5rem;
-  color: rgba(255, 195, 0, 0.5);
-}
-.arrow-1 {
-  position: absolute;
-  right: 0rem;
-  bottom: 3.1rem;
-  width: 2.5rem;
-  height: 1.9rem;
-}
-.arrow-2 {
-  margin: 0 4.4rem 4.2rem 0;
-  width: 2.5rem;
-  height: 2.5rem;
-}
-/* FOOTER */
 
-.footer {
-  background: linear-gradient(180deg, rgba(1, 53, 101, 0.2), rgba(1, 49, 94, 0.2), rgba(0, 29, 61, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2), rgba(0, 8, 20, 0.2));
+/******************** LIST *****************/
+.list-section {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 1.6rem 0 1.6rem 0.1rem;
-  
+  flex-direction: column;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+/* searchbar */
+.list-searchbar {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.filter {
+  margin: auto 2rem;
+}
+
+/* list-element */
+.list-section h2{
+  margin: 0 1rem;
+}
+
+.list-element {
+  margin-bottom: 0.5rem;
+}
+
+.list-element:hover {
+  color: #FFC300;
 }

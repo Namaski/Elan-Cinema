@@ -11,17 +11,17 @@ $ctrlCinema = new CinemaController();
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'actor':
-            # code...
+            $ctrlCinema->listActors();
             break;
         case 'movie':
-            # code...
+            $ctrlCinema->listMovies();
             break;
         case 'director':
-            # code...
+            $ctrlCinema->listDirectors();
             break;
         
     }
 } else {
-    $ctrlCinema->listFilms();
+    require "view/home.php";
 }
 
