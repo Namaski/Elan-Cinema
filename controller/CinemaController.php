@@ -9,79 +9,91 @@ class CinemaController
     public function listMovies()
     {
         $pdo = Connect::seConnecter();
-        $requete = $pdo->query('
-        SELECT m.titre, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date
+        $allMovies = $pdo->query('
+        SELECT m.titre, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date, m.id_movie
         FROM movie m    
         ');
-        $liste = "Movies :";
+        $title= "Movies :";
 
-        require "view/list-movie.php";
+        require "view/listMovies.php";
     }
     public function listDirectors()
     {
         $pdo = Connect::seConnecter();
-        $requete = $pdo->query("
-        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'director'
+        $allDirectors = $pdo->query("
+        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'director', d.id_director
         FROM director d
         INNER JOIN person p
         ON d.id_person = p.id_person
         ");
-        $liste = "Directors :";
+        $title = "Directors :";
 
-        require "view/list-director.php";
+        require "view/listDirectors.php";
     }
     public function listActors()
     {
         $pdo = Connect::seConnecter();
-        $requete = $pdo->query("
-        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'actor'
+        $allActors = $pdo->query("
+        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'actor', a.id_actor
         FROM actor a
         INNER JOIN person p
         ON a.id_person = p.id_person
         ");
-        $liste = "Actors :";
+        $title = "Actors :";
 
-        require "view/list-actor.php";
+        require "view/listActors.php";
     }
-    public function showMovie()
+    public function showMovie(int $id)
     {
         $pdo = Connect::seConnecter();
-        $requete = $pdo->query('
+        $showMovie = $pdo->prepare('
         SELECT m.titre, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date, m.duree, m.synopsis, m.note, m.picture
         FROM movie m
-        WHERE m.titre = "' . $_GET['title'] . '"
+        WHERE m.id_movie = :id_movie
         ');
-        $liste = "Movie :";
+        
+        $showMovie->execute(["id_movie" => $id]);
+    
+        $title = "Movie :";
 
         require "view/movie.php";
     }
-    public function showActor()
+    public function showActor(int $id)
     {
+        
         $pdo = Connect::seConnecter();
-        $requete = $pdo->query("
-        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'actor', p.date_naissance, p.sexe, a.picture
+        $showActor = $pdo->prepare("
+        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'actor', p.date_naissance, p.sexe, a.picture, a.id_actor
         FROM actor a
         INNER JOIN person p
         ON a.id_person = p.id_person
-        WHERE  CONCAT(p.prenom, ' ', p.nom) = \"" . $_GET['actor'] . "\"
+        WHERE a.id_actor = :id_actor
         ");
-        $liste = "Actor :";
+
+        $showActor->execute([ "id_actor" => $id]);
+        $title = "Actor :";
 
         require "view/actor.php";
     }
 
-    public function showDirector()
+    public function showDirector(int $id)
     {
         $pdo = Connect::seConnecter();
-        $requete = $pdo->query("
-        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'director', p.date_naissance, p.sexe, d.picture
+        $showDirector = $pdo->prepare("
+        SELECT CONCAT(p.prenom, ' ', p.nom) AS director, p.date_naissance, p.sexe, d.picture
         FROM director d
         INNER JOIN person p
         ON d.id_person = p.id_person
-        WHERE  CONCAT(p.prenom, ' ', p.nom) = \"" . $_GET['director'] . "\"
+        WHERE d.id_director = :id_director
         ");
-        $liste = "Director :";
+        
+        $showDirector->execute(["id_director" => $id]);
+        var_dump($showDirector->fetch());
+        
+        $title = "Director :";
 
         require "view/director.php";
     }
+
+    
 }

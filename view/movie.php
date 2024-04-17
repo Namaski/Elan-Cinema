@@ -4,7 +4,7 @@
   <!-- SEARCH BAR SECTION -->
   <div class="list-searchbar">
     <form class="searchbar-section" action="" method="get">
-      <input id="search" type="text" placeholder="Search <?= $liste ?>">
+      <input id="search" type="text" placeholder="Search <?= $title ?>">
       <input id="send" type="submit" value="Search">
     </form>
     <div class="filter">
@@ -15,22 +15,18 @@
   <!-- LIST SECTION -->
 
   <h2>
-    <?= $liste ?>
+    <?= $title ?>
   </h2>
 
   <div class="list-container">
 
-    <?php
-    
-    foreach ($requete->fetchall() as $element) { ?>
+    <?php $movie = $showMovie->fetch(); ?>
+
       <div class="list-element">
-    
-          <p><?= $element["titre"] ?></p>
-          <p><?= "(" . $element["date"] . ")" ?></p>
+          <p><?= $movie["titre"] ?></p>
+          <p><?= "(" . $movie["date"] . ")" ?></p>
     
       </div>
-    <?php } ?>
-
   </div>
 </article>
 

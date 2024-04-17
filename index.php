@@ -7,34 +7,31 @@ spl_autoload_register(function ($class_name) {
 });
 
 $ctrlCinema = new CinemaController();
+if (isset($_GET['id']) ) {
+    $id = $_GET['id'];
+}
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
-        case 'actor':
-            if (isset($_GET['actor'])) {
-                $ctrlCinema->showActor();
-            } else {
-                $ctrlCinema->listActors();
-            }
+        case 'listActors':
+            $ctrlCinema->listActors();
+            break;
+        case 'detailActor':
+            $ctrlCinema->showActor($id);
             break;
         case 'movie':
-            if (isset($_GET['title'])) {
-                $ctrlCinema->showMovie();
-            } else {
-                $ctrlCinema->listMovies();
-            }
+            $ctrlCinema->listMovies();
+            break;
+        case 'detailMovie':
+            $ctrlCinema->showMovie($id);
             break;
         case 'director':
-            if (isset($_GET['director'])) {
-                $ctrlCinema->showDirector();
-            } else {
-                $ctrlCinema->listDirectors();
-            }
-            
+            $ctrlCinema->listDirectors();
             break;
-        
+        case 'detailDirector':
+            $ctrlCinema->showDirector($id);
+            break;
     }
 } else {
     require "view/home.php";
 }
-

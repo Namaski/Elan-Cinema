@@ -20,7 +20,7 @@
             </a>
             <ul class="navbar">
                 <li>
-                    <a href="index.php?action=actor">
+                    <a href="index.php?action=listActors">
                         ACTOR
                     </a>
                 </li>

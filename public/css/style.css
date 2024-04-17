@@ -246,6 +246,10 @@ header {
   margin-bottom: 0.5rem;
 }
 
-.list-element:hover {
+.list-element a{
+  color: #FFFFFF;
+}
+
+.list-element a:hover {
   color: #FFC300;
 }
