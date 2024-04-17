@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `acteur` (
   KEY `id_personne` (`id_personne`) USING BTREE,
   CONSTRAINT `acteur_ibfk_1` FOREIGN KEY (`id_personne`) REFERENCES `personne` (`id_personne`)
 ) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+ 
 -- Listage des données de la table cinema sql.acteur : ~22 rows (environ)
 INSERT INTO `acteur` (`id_acteur`, `id_personne`, `picture`) VALUES
 	(2, 2, 'public/img/Tobey_Maguire.webp'),
