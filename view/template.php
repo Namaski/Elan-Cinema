@@ -35,7 +35,9 @@
                     </a>
                 </li>
             </ul>
-            <img class="admin-logo" src="./public/img/svg/adminLogo1_x2.svg" />
+            <a href="index.php?action=showPanelAddPerson">
+                <img class="admin-logo" src="./public/img/svg/adminLogo1_x2.svg" />
+            </a>
         </header>
 
         <!-- CONTENT -->

@@ -3,6 +3,7 @@
 <!-- SEARCHBAR SECTION -->
 
     <div>
+    <?php var_dump($_POST)?>
         <article class="searchbar-background">
             <form class="searchbar-section" action="" method="get">
                 <input id="search" type="text" placeholder="Search a movie, an actor or a director">

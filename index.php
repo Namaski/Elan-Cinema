@@ -1,5 +1,6 @@
 <?php
 
+use Controller\AdminController;
 use controller\CinemaController;
 
 spl_autoload_register(function ($class_name) {
@@ -7,6 +8,8 @@ spl_autoload_register(function ($class_name) {
 });
 
 $ctrlCinema = new CinemaController();
+$ctrlAdmin = new AdminController();
+
 if (isset($_GET['id']) ) {
     $id = $_GET['id'];
 }
@@ -30,6 +33,18 @@ if (isset($_GET['action'])) {
             break;
         case 'detailDirector':
             $ctrlCinema->showDirector($id);
+            break;
+        case 'showPanelAddPerson':
+            $ctrlAdmin->showPanelAddPerson();
+            break;
+        case 'showPanelAddMovie':
+            $ctrlAdmin->showPanelAddMovie();
+            break;
+        case 'addPerson':
+            $ctrlAdmin->addPerson();
+            break;
+        case 'addMovie':
+            // $ctrlAdmin->addMovie();
             break;
     }
 } else {

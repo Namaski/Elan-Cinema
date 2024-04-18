@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Filmopédia</title>
+        <link rel="stylesheet" href="./public/css/style.css">
+        <script src="https://kit.fontawesome.com/d80deb4694.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <div class="index">
+            <!-- HEADER -->
+            <header>
+                <a href="index.php">
+                    <p class="logo">
+                        Filmopedia
+                    </p>
+                </a>
+                <ul class="navbar">
+                    <li>
+                        <a href="index.php?action=listActors">
+                            ACTOR
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.php?action=movie">
+                            MOVIE
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.php?action=director">
+                            DIRECTOR
+                        </a>
+                    </li>
+                </ul>
+                <a href="index.php?action=admin">
+                    <img class="admin-logo" src="./public/img/svg/adminLogo1_x2.svg" />
+
+                </a>
+            </header>
+
+            <!-- CONTENT -->
+
+            <article class="admin-section">
+                <div class="side-panel">
+                    <h4> Admin-Panel</h4>
+
+                    <ul>
+                        <li>
+                            <a href="index.php?action=adminInsertion">
+                                Insertion
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.php?action=adminModification">
+                                Modification
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.php?action=adminDelete">
+                                Delete
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- FORM -->
+                <div class="admin-panel">
+                    <h4>Insertion : Actor</h4>
+                    
+
+                    <form action="index.php?action=addMovie" method="post" id="addPerson">
+                        <div>
+                            <div>
+                                <label for="firstname"> Firstname </label>
+                                <input type="text" name="firstname">
+                            </div>
+                            <div>
+                                <label for="lastname"> Lastname </label>
+                                <input type="text" name="lastname">
+                            </div>
+                        </div>
+                        <label for="birthday"> Birthday</label>
+                        <input type="date" name="birthday">
+                        <div class="radioForm">
+                            <div>
+                                <label for="sex"> Female </label>
+                                <input type="radio" name="sex">
+                            </div>
+                            <div>
+                                <label for="sex"> Male </label>
+                                <input type="radio" name="sex">
+                            </div>
+                        </div>
+                        <input type="submit" value="Send">
+
+                    </form>
+
+                </div>
+
+            </article>
+
+            <!-- FOOTER -->
+            <div class="footer">
+                <span class="filmopedia">
+                    2024 © Filmopedia
+                </span>
+            </div>
+        </div>
+
+    </body>
+
+    </html>
+
+</body>
+
+</html>

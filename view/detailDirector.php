@@ -26,7 +26,7 @@ ob_start();
 
     <?php $director = $showDirector->fetch(); ?>
       <div class="list-element">
-        <p><?= var_dump($director); ?></p>
+        <p><?= $director['director']; ?></p>
       </div>
 
   </div>

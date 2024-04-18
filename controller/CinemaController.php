@@ -56,7 +56,7 @@ class CinemaController
     
         $title = "Movie :";
 
-        require "view/movie.php";
+        require "view/detailMovie.php";
     }
     public function showActor(int $id)
     {
@@ -73,7 +73,7 @@ class CinemaController
         $showActor->execute([ "id_actor" => $id]);
         $title = "Actor :";
 
-        require "view/actor.php";
+        require "view/detailActor.php";
     }
 
     public function showDirector(int $id)
@@ -88,11 +88,11 @@ class CinemaController
         ");
         
         $showDirector->execute(["id_director" => $id]);
-        var_dump($showDirector->fetch());
+        
         
         $title = "Director :";
 
-        require "view/director.php";
+        require "view/detailDirector.php";
     }
 
     
