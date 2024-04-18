@@ -40,11 +40,14 @@ if (isset($_GET['action'])) {
         case 'showPanelAddMovie':
             $ctrlAdmin->showPanelAddMovie();
             break;
+        case 'showPanelAddCasting':
+            $ctrlAdmin->showPanelAddCasting();
+            break;
         case 'addPerson':
             $ctrlAdmin->addPerson();
             break;
         case 'addMovie':
-            // $ctrlAdmin->addMovie();
+            $ctrlAdmin->addMovie();
             break;
     }
 } else {

@@ -36,6 +36,7 @@
                 <input type="text" name="title">
             </div>
 
+            <label for="director"> Director </label>
             <select name="director" class="form-select">
                 <option value="" disabled>Director</option>
                 <?php foreach ($allDirectors->fetchAll() as $director) { ?>
