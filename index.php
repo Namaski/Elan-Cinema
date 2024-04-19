@@ -10,7 +10,7 @@ spl_autoload_register(function ($class_name) {
 $ctrlCinema = new CinemaController();
 $ctrlAdmin = new AdminController();
 
-if (isset($_GET['id']) ) {
+if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
@@ -43,6 +43,12 @@ if (isset($_GET['action'])) {
         case 'showPanelAddCasting':
             $ctrlAdmin->showPanelAddCasting();
             break;
+        case 'showPanelEditPerson':
+            $ctrlAdmin->showPanelEditPerson();
+            break;
+        case 'showPanelEditMovie':
+            $ctrlAdmin->showPanelEditMovie();
+            break;
         case 'addPerson':
             $ctrlAdmin->addPerson();
             break;
@@ -51,6 +57,12 @@ if (isset($_GET['action'])) {
             break;
         case 'addCasting':
             $ctrlAdmin->addCasting();
+            break;
+        case 'editPerson':
+            $ctrlAdmin->editPerson();
+            break;
+        case 'editMovie':
+            $ctrlAdmin->editMovie();
             break;
     }
 } else {
