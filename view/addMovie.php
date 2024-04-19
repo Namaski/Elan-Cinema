@@ -12,15 +12,30 @@
                 <a href="index.php?action=showPanelAddMovie">
                     Add(+) Movie
                 </a>
-            </li>
-            <li>
-                <a href="index.php?action=adminModification">
-                    Modification
+                <a href="index.php?action=showPanelAddCasting">
+                    Add(+) Movie Casting
                 </a>
             </li>
             <li>
-                <a href="index.php?action=adminDelete">
-                    Delete
+                <a href="index.php?action=showPanelEditPerson">
+                    Actor
+                </a>
+                <a href="index.php?action=showPanelEditMovie">
+                    Movie
+                </a>
+                <a href="index.php?action=showPanelEditCasting">
+                    Casting
+                </a>
+            </li>
+            <li>
+                <a href="index.php?action=showPanelDeleteActor">
+                    Actor
+                </a>
+                <a href="index.php?action=showPanelDeleteMovie">
+                    Movie
+                </a>
+                <a href="index.php?action=showPanelDeleteCasting">
+                    Casting
                 </a>
             </li>
         </ul>

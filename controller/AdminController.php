@@ -39,7 +39,29 @@ class AdminController
     public function showPanelAddCasting()
     {
         $pdo = Connect::seConnecter();
-        
+
+        //    IF THERE IS A SELECTED MOVIE
+        if (isset($_POST['movie'])) {
+
+            $id_movie = filter_input(INPUT_POST, "movie", FILTER_SANITIZE_NUMBER_INT);
+
+            $movie = $pdo->prepare(
+                "SELECT m.title, m.id_movie
+                FROM movie m
+                WHERE m.id_movie = :id_movie
+                "
+            );
+            $movie->execute([
+                ":id_movie" => $id_movie
+            ]);
+        }
+        // ELSE GET ALL MOVIES
+        else {
+            $allMovies =  $pdo->query(
+                "SELECT m.title , m.id_movie
+                FROM movie m"
+            );
+        }
 
         require "view/addCasting.php";
     }
@@ -164,7 +186,7 @@ class AdminController
     }
 
     /////////////ADD CASTING////////////////
-    
+
     public function addCasting()
     {
 
@@ -219,5 +241,4 @@ class AdminController
 
         require "view/addCasting.php";
     }
-    
 }
