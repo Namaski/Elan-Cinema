@@ -49,6 +49,9 @@ if (isset($_GET['action'])) {
         case 'addMovie':
             $ctrlAdmin->addMovie();
             break;
+        case 'addCasting':
+            $ctrlAdmin->addCasting();
+            break;
     }
 } else {
     require "view/home.php";

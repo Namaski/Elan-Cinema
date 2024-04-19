@@ -23,7 +23,7 @@
                 <a href="index.php?action=showPanelEditMovie">
                     Movie
                 </a>
-                
+
             </li>
             <li>
                 <a href="index.php?action=showPanelDeleteActor">
@@ -32,64 +32,83 @@
                 <a href="index.php?action=showPanelDeleteMovie">
                     Movie
                 </a>
-                
+
             </li>
         </ul>
     </div>
     <!-- FORM -->
     <div class="admin-panel">
+
+
         <h4>Insertion :</h4>
-        
-        <form action="index.php?action=showPanelAddCasting" method="post"></form>
 
-        <label for="movie"> Select the movie casting </label>
-        <select name="movie" class="form-select">
-            <option value=""> --Movie-- </option>
-            <?php foreach ($allMovies->fetchAll() as $movie) { ?>
-                <option value="<?= $movie['id_movie'] ?>">
-                    <?= $movie['movie'] ?>
-                </option>
-            <?php } ?>
-            
-        </select>
+        <!-- FIRST FORM CHOOSE MOVIE THE POINT IS TO ADD AFTER THE POSSIBILITY TO SEE ALL CASTING OF A MOVIE AND MODIFY, DELETE OR ADD A NEW CASTING (ADD AFTER WITH JS AUTO SEND FORM WITHOUT SUBMIT ON SCRIPT.JS) -->
 
+        <?php if (!isset($id_movie)) { ?>
 
-        <form action="index.php?action=addMovie" method="post" id="addPerson">
+            <form action="index.php?action=showPanelAddCasting" method="post">
+                <label for="movie"> Select the movie casting</label>
 
+                    <select name="movie" class="form-select" id="movie">
+                        <option value=""> --Movie-- </option>
+                        <?php foreach ($allMovies->fetchAll() as $movie) { ?>
+                            <option value="<?= $movie['id_movie'] ?>">
+                                <?= $movie['title'] ?>
+                            </option>
+                        <?php } ?>
+                        <input type="submit" value="Send">
+                    </select>
+            </form>
 
-    
+        <?php } ?>
 
-            <div>
-                <label for="release"> Release
-                </label>
-                <input type="date" name="release">
+        <!-- IF MOVIE IS SELECTED -->
+        <?php if (isset($id_movie)) { ?>
 
-                <label for="duration"> Duration
-                </label>
-                <input type="number" name="duration">
+            <h4><?php $movie = $showMovie->fetch();
+                echo $movie['title']; ?></h4>
 
-                <label for="genre"> Genre </label>
+            <!-- I WILL NEED TO MAKE A NEW FONCTION LIKE FIRST FORM TO CHOOSE BEETWEEN EDIT DELETE OR ADD A CASTING-->
 
-                <select name="genre" class="form-select">
+            <!-- SECOND(FOR NOW) FORM TO ADD CASTING IN SELECTED MOVIE -->
 
-                    <option value="" disabled>Genre</option>
-                    <?php foreach ($allGenres->fetchAll() as $genre) { ?>
-                        <option value="<?= $genre['id_genre'] ?>">
-                            <?= $genre['libelle'] ?>
+            <form action="index.php?action=addCasting" method="post" id="addPerson">
+
+                <!-- HIDDEN VALUE TO SEND THE MOVIE ID -->
+                <input type="hidden" name="movie" value="<?= $movie['id_movie']?> ">
+
+                <!-- SELECT FOR ACTOR -->
+                <label for="actor"> Select the actor</label>
+
+                    <select name="actor" class="form-select" id="actor">
+
+                        <option value="">--Actor--</option>
+                        <!-- ADD SELECT LINE FOR EACH EL IN DATABASE -->
+                        <?php foreach ($allActors->fetchAll() as $actor) { ?>
+                            <option value="<?= $actor['id_actor'] ?>">
+                                <?= $actor['actor'] ?>
+                            </option>
+                        <?php } ?>
+
+                    </select>
+
+                <!-- SELECT FOR ROLE -->
+                <label for="role"> Select the role </label>
+                <select name="role" class="form-select" id="role">
+
+                    <option value="">--Role--</option>
+                    <!-- ADD SELECT LINE FOR EACH EL IN DATABASE -->
+                    <?php foreach ($allRoles->fetchAll() as $role) { ?>
+                        <option value="<?= $role['id_role'] ?>">
+                            <?= $role['libelle'] ?>
                         </option>
                     <?php } ?>
                 </select>
 
-            </div>
+                <input type="submit" name="submit" value="Send">
 
-            <div>
-                <label for="synopsis"> Synopsis
-                </label>
-                <input type="text" name="synopsis">
-            </div>
-
-            <input type="submit" name="submit" value="Send">
-        </form>
+            </form>
+        <?php } ?>
     </div>
 
 </article>
