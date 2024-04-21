@@ -354,34 +354,132 @@ class AdminController
 
         // FILTER DATA
         if (isset($_POST['submit'])) {
-            $id_movie = filter_input(INPUT_POST, "movie", FILTER_SANITIZE_NUMBER_INT);
-            $id_actor = filter_input(INPUT_POST, "actor", FILTER_SANITIZE_NUMBER_INT);
-            $id_role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
 
+            // GET ID FIRST
+            $id_person = filter_input(INPUT_POST, "id_person", FILTER_SANITIZE_NUMBER_INT);
 
-            // ADD PERSON
+            // UPDATE IF FIRSTNAME IS SET
+            if ($_POST['firstname']) {
+                $firstName = filter_input(INPUT_POST, "firstName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $addMovie = $pdo->prepare(
-                "INSERT INTO casting (id_movie, id_actor, id_role)
-            VALUES (:id_movie, :id_actor, :id_role)"
-            );
+                $changeFirstName = $pdo->prepare(
+                    "UPDATE p.prenom
+                    FROM person p
+                    SET p.prenom = :firstName
+                    WHERE p.id_person = :id_person
+                    "
+                );
+                $changeFirstName->execute([
+                    "firstName" => $firstName,
+                    "id_person" => $id_person
+                ]);
+            }
 
-            $addMovie->execute([
-                ':id_movie' => $id_movie,
-                ':id_actor' => $id_actor,
-                ':id_role' => $id_role
-            ]);
+            // UPDATE IF LASTNAME IS SET
+            if ($_POST['lastName']) {
+                $lastName = filter_input(INPUT_POST, "LastName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $changeLastName = $pdo->prepare(
+                    "UPDATE p.nom
+                    FROM person p
+                    SET p.nom = :lastName
+                    WHERE p.id_person = :id_person
+                    "
+                );
+                $changeLastName->execute([
+                    "lastName" => $lastName,
+                    "id_person" => $id_person
+                ]);
+            }
+
+            // UPDATE IF BIRTHDATE IS SET
+            if ($_POST['birthdate']) {
+                $birthdate = filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $changeBirthdate = $pdo->prepare(
+                    "UPDATE p.date_naissance
+                    FROM person p
+                    SET p.date_naissance = :birthdate
+                    WHERE p.id_person = :id_person
+                    "
+                );
+                $changeBirthdate->execute([
+                    "birthdate" => $birthdate,
+                    "id_person" => $id_person
+                ]);
+            }
+
+            // UPDATE IF SEX IS SET
+            if ($_POST['sex']) {
+                $sex = filter_input(INPUT_POST, "sex", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $changeSex = $pdo->prepare(
+                    "UPDATE p.sexe
+                    FROM person p
+                    SET p.sexe = :sex
+                    WHERE p.id_person = :id_person
+                    "
+                );
+                $changeSex->execute([
+                    "sex" => $sex,
+                    "id_person" => $id_person
+                ]);
+            }
+
+            // UPDATE ACTOR OR DIRECTOR IS SET (CHECK LATER IF KEY IS UNIQUE)
+            if ($_POST['actorOrDirector']) {
+                $actorOrDirector = filter_input(INPUT_POST, "actorOrDirector", FILTER_SANITIZE_NUMBER_INT);
+
+                // DELETE FIRST THE PREVIOUS ACTOR/DIRECTOR ID
+                //ACTOR
+                $deleteActor = $pdo->prepare(
+                    "DELETE a 
+                    FROM actor a
+                    INNER JOIN person p
+                    WHERE p.id_person = :id_person"
+                );
+
+                $deleteActor->execute([
+                    "id_person" => $id_person
+                ]);
+
+                // DIRECTOR
+                $deleteDirector = $pdo->prepare(
+                    "DELETE d 
+                    FROM director d
+                    INNER JOIN person p
+                    WHERE p.id_person = :id_person"
+                );
+
+                $deleteDirector->execute([
+                    "id_person" => $id_person
+                ]);
+
+                //CHECK IF ADD ACTOR OR DIRECTOR
+                if ($_POST['actorOrDirector'] === 1) {
+
+                    // ADD A NEW ACTOR WITH PERSON ID
+                    $addActor = $pdo->prepare(
+                        "INSERT INTO actor (id_person)
+                        VALUES (:id_person)"
+                    );
+                    $addActor->execute([
+                        "id_person" => $id_person
+                    ]);
+                } else {
+                    // ADD A NEW DIRECTOR WITH PERSON ID
+                    $addDirector = $pdo->prepare(
+                        "INSERT INTO director (id_person)
+                        VALUES (:id_person)"
+                    );
+                    $addDirector->execute([
+                        "id_person" => $id_person
+                    ]);
+                }
+            }
         }
 
-        $allMovies =  $pdo->query(
-            "SELECT m.title , m.id_movie
-            FROM movie m"
-        );
-
-        //UNSET ID_MOVIE TO SELECT NEW MOVIE (MAYBE ADD RETURN BUTTON INSTEAD) 
-        unset($id_movie);
-
-        header('Location: index.php?action=showPanelAddCasting');
+        header('Location: index.php?action=showPanelEditPerson');
     }
     // EDIT MOVIE
 
@@ -392,34 +490,179 @@ class AdminController
 
         // FILTER DATA
         if (isset($_POST['submit'])) {
-            $id_movie = filter_input(INPUT_POST, "movie", FILTER_SANITIZE_NUMBER_INT);
-            $id_actor = filter_input(INPUT_POST, "actor", FILTER_SANITIZE_NUMBER_INT);
-            $id_role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
 
+            // GET ID FIRST
+            $id_person = filter_input(INPUT_POST, "id_movie", FILTER_SANITIZE_NUMBER_INT);
 
-            // ADD Movie
+            // UPDATE IF FIRSTNAME IS SET
+            if ($_POST['firstname']) {
+                $firstName = filter_input(INPUT_POST, "firstName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $addMovie = $pdo->prepare(
-                "INSERT INTO casting (id_movie, id_actor, id_role)
-            VALUES (:id_movie, :id_actor, :id_role)"
-            );
+                $changeFirstName = $pdo->prepare(
+                    "UPDATE p.prenom
+                    FROM person p
+                    SET p.prenom = :firstName
+                    WHERE p.id_person = :id_person
+                    "
+                );
+                $changeFirstName->execute([
+                    "firstName" => $firstName,
+                    "id_person" => $id_person
+                ]);
+            }
 
-            $addMovie->execute([
-                ':id_movie' => $id_movie,
-                ':id_actor' => $id_actor,
-                ':id_role' => $id_role
-            ]);
+            // UPDATE IF LASTNAME IS SET
+            if ($_POST['lastName']) {
+                $lastName = filter_input(INPUT_POST, "LastName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $changeLastName = $pdo->prepare(
+                    "UPDATE p.nom
+                    FROM person p
+                    SET p.nom = :lastName
+                    WHERE p.id_person = :id_person
+                    "
+                );
+                $changeLastName->execute([
+                    "lastName" => $lastName,
+                    "id_person" => $id_person
+                ]);
+            }
+
+            // UPDATE IF BIRTHDATE IS SET
+            if ($_POST['birthdate']) {
+                $birthdate = filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $changeBirthdate = $pdo->prepare(
+                    "UPDATE p.date_naissance
+                    FROM person p
+                    SET p.date_naissance = :birthdate
+                    WHERE p.id_person = :id_person
+                    "
+                );
+                $changeBirthdate->execute([
+                    "birthdate" => $birthdate,
+                    "id_person" => $id_person
+                ]);
+            }
+
+            // UPDATE IF SEX IS SET
+            if ($_POST['sex']) {
+                $sex = filter_input(INPUT_POST, "sex", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $changeSex = $pdo->prepare(
+                    "UPDATE p.sexe
+                    FROM person p
+                    SET p.sexe = :sex
+                    WHERE p.id_person = :id_person
+                    "
+                );
+                $changeSex->execute([
+                    "sex" => $sex,
+                    "id_person" => $id_person
+                ]);
+            }
+
+            // UPDATE ACTOR OR DIRECTOR IS SET (CHECK LATER IF KEY IS UNIQUE)
+            if ($_POST['actorOrDirector']) {
+                $actorOrDirector = filter_input(INPUT_POST, "actorOrDirector", FILTER_SANITIZE_NUMBER_INT);
+
+                // DELETE FIRST THE PREVIOUS ACTOR/DIRECTOR ID
+                //ACTOR
+                $deleteActor = $pdo->prepare(
+                    "DELETE a 
+                    FROM actor a
+                    INNER JOIN person p
+                    WHERE p.id_person = :id_person"
+                );
+
+                $deleteActor->execute([
+                    "id_person" => $id_person
+                ]);
+
+                // DIRECTOR
+                $deleteDirector = $pdo->prepare(
+                    "DELETE d 
+                    FROM director d
+                    INNER JOIN person p
+                    WHERE p.id_person = :id_person"
+                );
+
+                $deleteDirector->execute([
+                    "id_person" => $id_person
+                ]);
+
+                //CHECK IF ADD ACTOR OR DIRECTOR
+                if ($_POST['actorOrDirector'] === 1) {
+
+                    // ADD A NEW ACTOR WITH PERSON ID
+                    $addActor = $pdo->prepare(
+                        "INSERT INTO actor (id_person)
+                        VALUES (:id_person)"
+                    );
+                    $addActor->execute([
+                        "id_person" => $id_person
+                    ]);
+                } else {
+                    // ADD A NEW DIRECTOR WITH PERSON ID
+                    $addDirector = $pdo->prepare(
+                        "INSERT INTO director (id_person)
+                        VALUES (:id_person)"
+                    );
+                    $addDirector->execute([
+                        "id_person" => $id_person
+                    ]);
+                }
+            }
         }
 
-        $allMovies =  $pdo->query(
-            "SELECT m.title , m.id_movie
-            FROM movie m"
+        header('Location: index.php?action=showPanelEditPerson');
+    }
+
+    // DELETE MOVIE
+    public function deleteMovie($id)
+    {
+        $pdo = Connect::seConnecter();
+        $casting = $pdo->prepare("DELETE FROM
+        casting c
+        WHERE c.id_movie = :id");
+
+        echo $casting->execute(["id" => $id]);
+
+        $genres = $pdo->prepare(
+            "DELETE FROM genre_movie gm
+            WHERE gm.id_movie = :id"
         );
 
-        //UNSET ID_MOVIE TO SELECT NEW MOVIE (MAYBE ADD RETURN BUTTON INSTEAD) 
-        unset($id_movie);
+        echo $genres->execute(["id" => $id]);
 
-        header('Location: index.php?action=showPanelAddCasting');
+        $movie = $pdo->prepare("
+        DELETE FROM
+        movie m
+        WHERE m.id_movie = :id
+        ");
+
+        echo $movie->execute(["id" => $id]);
+
+        $movies = $pdo->query(
+            "SELECT m.id_movie, m.title, 
+            DATE_FORMAT(SEC_TO_TIME(m.timeMovie * 60), '%HH%imn') AS timeMovie, 
+            DATE_FORMAT(m.releaseDate, '%d/%m/%Y') AS releaseDate, 
+            m.synopsis, 
+            m.image_url,
+            d.id_director,
+            p.firstName,
+            p.lastName, 
+            p.birthday, 
+            p.sex
+            FROM director d
+            INNER JOIN movie m ON d.id_director = m.id_director
+            INNER JOIN person p ON d.id_person = p.id_person"
+        );
+
+        require "view/listMoviesAdmin.php";
     }
+
+    // DELETE PERSON
+
 
 }
