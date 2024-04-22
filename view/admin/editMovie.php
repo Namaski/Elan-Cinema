@@ -5,6 +5,7 @@
         <h4> Admin-Panel</h4>
 
         <ul>
+            <!-- ADD PERSON -->
             <li>
                 <a href="index.php?action=showPanelAddPerson">
                     Add(+) Actor
@@ -12,28 +13,34 @@
                 <a href="index.php?action=showPanelAddMovie">
                     Add(+) Movie
                 </a>
+            </li>
+            <!-- CASTING -->
+            <li>
                 <a href="index.php?action=showPanelAddCasting">
-                    Add(+) Movie Casting
+                    Casting
                 </a>
             </li>
+            <!-- EDIT -->
             <li>
                 <a href="index.php?action=showPanelEditPerson">
-                    Actor
+                    Edit Person
                 </a>
                 <a href="index.php?action=showPanelEditMovie">
-                    Movie
+                    Edit Movie
                 </a>
 
             </li>
+            <!-- DELETE -->
             <li>
-                <a href="index.php?action=showPanelDeleteActor">
-                    Actor
+                <a href="index.php?action=showPanelDeletePerson">
+                    Delete(-) Person
                 </a>
                 <a href="index.php?action=showPanelDeleteMovie">
-                    Movie
+                    Delete(-) Movie
                 </a>
 
             </li>
+
         </ul>
     </div>
     <!-- FORM -->
@@ -47,11 +54,11 @@
         <?php if (!isset($id_movie)) { ?>
 
             <form action="index.php?action=showPanelEditMovie" method="post">
-                <label for="movie"> Select the movie casting</label>
+                <label for="movie"> Select the movie casting </label>
 
                 <select name="movie" class="form-select" id="movie">
                     <option value=""> --Movie-- </option>
-                    <?php foreach ($allMovies->fetchAll() as $movie) { ?>
+                    <?php foreach ($showAllMovies->fetchAll() as $movie) { ?>
                         <option value="<?= $movie['id_movie'] ?>">
                             <?= $movie['title'] ?>
                         </option>
@@ -65,16 +72,20 @@
         <!-- IF MOVIE IS SELECTED -->
         <?php if (isset($id_movie)) { ?>
 
-            <h4><?php $movie = $showMovie->fetch();
-                echo $movie['title']; ?></h4>
+            <h4><?php $showMovie = $showDetailMovie->fetch();
+                echo $showMovie['title']; ?></h4>
 
             <!-- SECOND(FOR NOW) FORM TO EDIT THE SELECTED MOVIE -->
 
             <form action="index.php?action=editMovie" method="post" id="addPerson">
 
+
+                <!-- HIDDEN VALUE TO SEND THE MOVIE ID -->
+                <input type="hidden" name="movie" value="<?= $showMovie['id_movie'] ?> ">
+
                 <label for="title"> Title </label>
                 <div>
-                    <input type="text" name="title">
+                    <input type="text" name="title" value="">
                 </div>
 
                 <label for="director"> Director </label>
@@ -88,16 +99,13 @@
                 </select>
 
                 <div>
-                    <label for="release"> Release
-                    </label>
-                    <input type="date" name="release">
+                    <label for="release"> Release</label>
+                    <input type="date" name="release" value="">
 
-                    <label for="duration"> Duration
-                    </label>
-                    <input type="number" name="duration">
+                    <label for="duration"> Duration</label>
+                    <input type="number" name="duration" value="">
 
                     <label for="genre"> Genre </label>
-
                     <select name="genre" class="form-select">
 
                         <option value="" disabled>Genre</option>
@@ -106,14 +114,14 @@
                                 <?= $genre['libelle'] ?>
                             </option>
                         <?php } ?>
+
                     </select>
 
                 </div>
 
                 <div>
-                    <label for="synopsis"> Synopsis
-                    </label>
-                    <input type="text" name="synopsis">
+                    <label for="synopsis"> Synopsis</label>
+                    <input type="text" name="synopsis" value="">
                 </div>
 
                 <input type="submit" name="submit" value="Send">

@@ -25,7 +25,7 @@
     foreach ($allMovies->fetchall() as $element) { ?>
       <div class="list-element">
         <a href="index.php?action=detailMovie&id=<?=$element["id_movie"]?>">
-          <p><?= $element["titre"] ?></p>
+          <p><?= $element["title"] ?></p>
           <p><?= "(" . $element["date"] . ")" ?></p>
         </a>
       </div>

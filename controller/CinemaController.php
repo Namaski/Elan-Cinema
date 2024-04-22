@@ -10,7 +10,7 @@ class CinemaController
     {
         $pdo = Connect::seConnecter();
         $allMovies = $pdo->query('
-        SELECT m.titre, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date, m.id_movie
+        SELECT m.title, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date, m.id_movie
         FROM movie m    
         ');
         $title= "Movies :";
@@ -47,7 +47,7 @@ class CinemaController
     {
         $pdo = Connect::seConnecter();
         $showMovie = $pdo->prepare('
-        SELECT m.titre, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date, m.duree, m.synopsis, m.note, m.picture
+        SELECT m.title, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date, m.duree, m.synopsis, m.note, m.picture
         FROM movie m
         WHERE m.id_movie = :id_movie
         ');

@@ -5,6 +5,7 @@
         <h4> Admin-Panel</h4>
 
         <ul>
+            <!-- ADD PERSON -->
             <li>
                 <a href="index.php?action=showPanelAddPerson">
                     Add(+) Actor
@@ -12,33 +13,36 @@
                 <a href="index.php?action=showPanelAddMovie">
                     Add(+) Movie
                 </a>
+            </li>
+            <!-- CASTING -->
+            <li>
                 <a href="index.php?action=showPanelAddCasting">
-                    Add(+) Movie Casting
+                    Casting
                 </a>
             </li>
+            <!-- EDIT -->
             <li>
                 <a href="index.php?action=showPanelEditPerson">
-                    Actor
+                    Edit Person
                 </a>
                 <a href="index.php?action=showPanelEditMovie">
-                    Movie
+                    Edit Movie
                 </a>
-                <a href="index.php?action=showPanelEditCasting">
-                    Casting
-                </a>
+
             </li>
+            <!-- DELETE -->
             <li>
-                <a href="index.php?action=showPanelDeleteActor">
-                    Actor
+                <a href="index.php?action=showPanelDeletePerson">
+                    Delete(-) Person
                 </a>
                 <a href="index.php?action=showPanelDeleteMovie">
-                    Movie
+                    Delete(-) Movie
                 </a>
-                <a href="index.php?action=showPanelDeleteCasting">
-                    Casting
-                </a>
+
             </li>
+
         </ul>
+
     </div>
     <!-- FORM -->
     <div class="admin-panel">

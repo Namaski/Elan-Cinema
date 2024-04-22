@@ -22,7 +22,7 @@ if (isset($_GET['action'])) {
         case 'detailActor':
             $ctrlCinema->showActor($id);
             break;
-        case 'movie':
+        case 'listMovie':
             $ctrlCinema->listMovies();
             break;
         case 'detailMovie':
@@ -49,6 +49,12 @@ if (isset($_GET['action'])) {
         case 'showPanelEditMovie':
             $ctrlAdmin->showPanelEditMovie();
             break;
+        case 'showPanelDeletePerson':
+            $ctrlAdmin->showPanelDeletePerson();
+            break;
+        case 'showPanelDeleteMovie':
+            $ctrlAdmin->showPanelDeleteMovie();
+            break;
         case 'addPerson':
             $ctrlAdmin->addPerson();
             break;
@@ -63,6 +69,12 @@ if (isset($_GET['action'])) {
             break;
         case 'editMovie':
             $ctrlAdmin->editMovie();
+            break;
+        case 'deletePerson':
+            $ctrlAdmin->deletePerson();
+            break;
+        case 'deleteMovie':
+            $ctrlAdmin->deleteMovie();
             break;
     }
 } else {

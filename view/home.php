@@ -12,7 +12,7 @@
         </article>
     </div>
     
-    <!-- GENRE SECTION -->
+    <!-- GENRE SECTION
     <article class="section-2">
         <div class="choose-agenre">
             Choose a genre
@@ -47,7 +47,7 @@
             <div class="line-1">
                 </div>
             </article>
-            
+             -->
             <?php $content = ob_get_clean();
 
 require "view/template.php";

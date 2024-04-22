@@ -23,7 +23,7 @@
     <?php $movie = $showMovie->fetch(); ?>
 
       <div class="list-element">
-          <p><?= $movie["titre"] ?></p>
+          <p><?= $movie["title"] ?></p>
           <p><?= "(" . $movie["date"] . ")" ?></p>
     
       </div>
