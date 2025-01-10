@@ -10,31 +10,31 @@ class CinemaController
     {
         $pdo = Connect::seConnecter();
         $allMovies = $pdo->query('
-        SELECT m.title, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date, m.id_movie
+        SELECT m.title, DATE_FORMAT(m.release_date, "%Y") AS date, m.id_movie
         FROM movie m    
         ');
         $title= "Movies :";
 
         require "view/listMovies.php";
     }
-    public function listDirectors()
+    public function listRealisators()
     {
         $pdo = Connect::seConnecter();
-        $allDirectors = $pdo->query("
-        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'director', d.id_director
-        FROM director d
+        $allRealisators = $pdo->query("
+        SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'realisator', r.id_realisator
+        FROM realisator r
         INNER JOIN person p
-        ON d.id_person = p.id_person
+        ON r.id_person = p.id_person
         ");
-        $title = "Directors :";
+        $title = "Realisators :";
 
-        require "view/listDirectors.php";
+        require "view/listRealisators.php";
     }
     public function listActors()
     {
         $pdo = Connect::seConnecter();
         $allActors = $pdo->query("
-        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'actor', a.id_actor
+        SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'actor', a.id_actor
         FROM actor a
         INNER JOIN person p
         ON a.id_person = p.id_person
@@ -47,7 +47,7 @@ class CinemaController
     {
         $pdo = Connect::seConnecter();
         $showMovie = $pdo->prepare('
-        SELECT m.title, DATE_FORMAT(m.annee_sortie_fr, "%Y") AS date, m.duree, m.synopsis, m.note, m.picture
+        SELECT m.title, DATE_FORMAT(m.release_date, "%Y") AS date, m.duree, m.synopsis, m.note, m.picture
         FROM movie m
         WHERE m.id_movie = :id_movie
         ');
@@ -63,7 +63,7 @@ class CinemaController
         
         $pdo = Connect::seConnecter();
         $showActor = $pdo->prepare("
-        SELECT CONCAT(p.prenom, ' ', p.nom) AS 'actor', p.date_naissance, p.sexe, a.picture, a.id_actor
+        SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'actor', p.birthday_date, p.sex, a.picture, a.id_actor
         FROM actor a
         INNER JOIN person p
         ON a.id_person = p.id_person
@@ -76,23 +76,23 @@ class CinemaController
         require "view/detailActor.php";
     }
 
-    public function showDirector(int $id)
+    public function showRealisator(int $id)
     {
         $pdo = Connect::seConnecter();
-        $showDirector = $pdo->prepare("
-        SELECT CONCAT(p.prenom, ' ', p.nom) AS director, p.date_naissance, p.sexe, d.picture
-        FROM director d
+        $showRealisator = $pdo->prepare("
+        SELECT CONCAT(p.firstname, ' ', p.lastname) AS realisator, p.birthday_date, p.sex, r.picture
+        FROM realisator r
         INNER JOIN person p
-        ON d.id_person = p.id_person
-        WHERE d.id_director = :id_director
+        ON r.id_person = p.id_person
+        WHERE r.id_realisator = :id_realisator
         ");
         
-        $showDirector->execute(["id_director" => $id]);
+        $showRealisator->execute(["id_realisator" => $id]);
         
         
-        $title = "Director :";
+        $title = "Realisator :";
 
-        require "view/detailDirector.php";
+        require "view/detailRealisator.php";
     }
 
     

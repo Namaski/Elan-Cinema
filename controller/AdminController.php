@@ -21,15 +21,15 @@ class AdminController
     {
         $pdo = Connect::seConnecter();
         $allGenres = $pdo->query(
-            "SELECT g.id_genre, g.libelle
+            "SELECT g.id_genre, g.name
             FROM genre g"
         );
 
-        $allDirectors = $pdo->query(
-            "SELECT CONCAT(p.prenom, ' ', p.nom) AS 'director', d.id_director
-        FROM director d
+        $allRealisators = $pdo->query(
+            "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'realisator', r.id_realisator
+        FROM realisator r
         INNER JOIN person p
-        ON d.id_person = p.id_person"
+        ON r.id_person = p.id_person"
         );
 
         require "view/admin/addMovie.php";
@@ -58,7 +58,7 @@ class AdminController
             ]);
 
             $allActors = $pdo->query(
-                "SELECT CONCAT(p.prenom, ' ', p.nom) AS 'actor', a.id_actor
+                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'actor', a.id_actor
                 FROM actor a
                 INNER JOIN person p
                 ON a.id_person = p.id_person
@@ -66,7 +66,7 @@ class AdminController
             );
 
             $allRoles = $pdo->query(
-                "SELECT r.libelle, r.id_role
+                "SELECT r.name, r.id_role
                 FROM role r
                 "
             );
@@ -91,14 +91,14 @@ class AdminController
     {
         $pdo = Connect::seConnecter();
 
-        //    IF THERE IS A SELECTED MOVIE
+        //    IF THERE IS A SELECTED PERSON
         if (isset($_POST['person'])) {
 
             $id_person = filter_input(INPUT_POST, "person", FILTER_SANITIZE_NUMBER_INT);
 
             // SHOW PERSON SELECTED
             $showPerson = $pdo->prepare(
-                "SELECT CONCAT(p.prenom, ' ', p.nom) AS 'person', p.id_person
+                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'person', p.id_person
                 FROM person p
                 WHERE p.id_person = :id_person"
 
@@ -114,7 +114,7 @@ class AdminController
         else {
             // ALL PERSON LIST
             $showAllPersons = $pdo->query(
-                "SELECT CONCAT(p.prenom, ' ', p.nom) AS 'person', p.id_person
+                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'person', p.id_person
                 FROM person p"
             );
 
@@ -147,7 +147,7 @@ class AdminController
             ]);
 
             $allActors = $pdo->query(
-                "SELECT CONCAT(p.prenom, ' ', p.nom) AS 'actor', a.id_actor
+                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'actor', a.id_actor
                 FROM actor a
                 INNER JOIN person p
                 ON a.id_person = p.id_person
@@ -155,20 +155,20 @@ class AdminController
             );
 
             $allRoles = $pdo->query(
-                "SELECT r.libelle, r.id_role
+                "SELECT r.name, r.id_role
                 FROM role r
                 "
             );
 
-            $allDirectors = $pdo->query(
-                "SELECT CONCAT(p.prenom, ' ', p.nom) AS 'director', d.id_director
-            FROM director d
+            $allRealisators = $pdo->query(
+                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'realisator', d.id_realisator
+            FROM realisator r
             INNER JOIN person p
-            ON d.id_person = p.id_person"
+            ON r.id_person = p.id_person"
             );
 
             $allGenres = $pdo->query(
-                "SELECT g.id_genre, g.libelle
+                "SELECT g.id_genre, g.name
                 FROM genre g"
             );
 
@@ -193,13 +193,13 @@ class AdminController
         $pdo = Connect::seConnecter();
 
         $showAllPersons = $pdo->query(
-            "SELECT CONCAT(p.prenom, ' ', p.nom) AS 'person', p.id_person
+            "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'person', p.id_person
             FROM person p
-            LEFT JOIN director d
-            ON p.id_person = d.id_person
+            LEFT JOIN realisator r
+            ON p.id_person = r.id_person
             LEFT JOIN movie m
-            ON d.id_director = m.id_director
-            WHERE m.id_director IS NULL 
+            ON r.id_realisator = m.id_realisator
+            WHERE m.id_realisator IS NULL 
             "    
         );
 
@@ -239,7 +239,7 @@ class AdminController
             //  ADD PERSON
             $pdo = Connect::seConnecter();
             $addPerson = $pdo->prepare(
-                "INSERT INTO person (prenom, nom, date_naissance, sexe)
+                "INSERT INTO person (firstname, lastname, birthday_date, sex)
             VALUES (:first_name, :last_name, :birthdate, :sex)"
             );
 
@@ -273,7 +273,7 @@ class AdminController
                 );
             } else {
                 $addPerson = $pdo->prepare("
-            INSERT INTO director (id_person)
+            INSERT INTO realisator (id_person)
             VALUES (:id_person)
             ");
 
@@ -305,8 +305,8 @@ class AdminController
             // ADD MOVIE
 
             $addMovie = $pdo->prepare(
-                "INSERT INTO movie (title,annee_sortie_fr, duree, synopsis, id_director)
-                VALUES (:title, :release, :duration, :synopsis, :id_director)"
+                "INSERT INTO movie (title, release_date, duree, synopsis, id_director)
+                VALUES (:title, :release, :duration, :synopsis, :id_realisator)"
             );
 
             $addMovie->execute([
@@ -314,7 +314,7 @@ class AdminController
                 ':release' => $release,
                 ':duration' => $duration,
                 ':synopsis' => $synopsis,
-                ':id_director' => $director
+                ':id_realisator' => $director
             ]);
 
             // GET MOVIE ID

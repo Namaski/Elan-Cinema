@@ -1,8 +1,4 @@
-
-<?php 
-ob_start();
-
-?>
+<?php ob_start(); ?>
 
 <article class="list-section">
   <!-- SEARCH BAR SECTION -->
@@ -24,10 +20,14 @@ ob_start();
 
   <div class="list-container">
 
-    <?php $director = $showDirector->fetch(); ?>
+    <?php
+    foreach ($allRealisators->fetchall() as $element) { ?>
       <div class="list-element">
-        <p><?= $director['director']; ?></p>
+        <a href="index.php?action=detailRealisator&id=<?=$element["id_realisator"] ?>">
+          <p><?= $element["realisator"] ?></p>
+      </a>
       </div>
+    <?php } ?>
 
   </div>
 </article>

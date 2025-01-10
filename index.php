@@ -29,10 +29,10 @@ if (isset($_GET['action'])) {
             $ctrlCinema->showMovie($id);
             break;
         case 'director':
-            $ctrlCinema->listDirectors();
+            $ctrlCinema->listRealisators();
             break;
-        case 'detailDirector':
-            $ctrlCinema->showDirector($id);
+        case 'detailRealisator':
+            $ctrlCinema->showRealisator($id);
             break;
         case 'showPanelAddPerson':
             $ctrlAdmin->showPanelAddPerson();

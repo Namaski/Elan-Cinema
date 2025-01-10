@@ -55,12 +55,12 @@
                 <input type="text" name="title">
             </div>
 
-            <label for="director"> Director </label>
+            <label for="director"> Realisator </label>
             <select name="director" class="form-select">
                 <option value="" disabled>Director</option>
-                <?php foreach ($allDirectors->fetchAll() as $director) { ?>
-                    <option value="<?= $director['id_director'] ?>">
-                        <?= $director['director'] ?>
+                <?php foreach ($allRealisators->fetchAll() as $realisator) { ?>
+                    <option value="<?= $realisator['id_realisator'] ?>">
+                        <?= $realisator['realisator'] ?>
                     </option>
                 <?php } ?>
             </select>
@@ -81,7 +81,7 @@
                     <option value="" disabled>Genre</option>
                     <?php foreach ($allGenres->fetchAll() as $genre) { ?>
                         <option value="<?= $genre['id_genre'] ?>">
-                            <?= $genre['libelle'] ?>
+                            <?= $genre['name'] ?>
                         </option>
                     <?php } ?>
                 </select>
