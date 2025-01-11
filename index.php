@@ -1,14 +1,23 @@
 <?php
 
-use Controller\AdminController;
-use controller\CinemaController;
+use Controller\MovieController;
+use Controller\ActorController;
+use Controller\RealisatorController;
+use Controller\Security\PersonAdminController;
+use Controller\Security\CastingAdminController;
+use Controller\Security\MovieAdminController;
 
 spl_autoload_register(function ($class_name) {
     include $class_name . '.php';
 });
 
-$ctrlCinema = new CinemaController();
-$ctrlAdmin = new AdminController();
+
+$ctrlMovie = new MovieController();
+$ctrlActor = new ActorController();
+$ctrlRealisator = new RealisatorController();
+$ctrlPersonAdmin = new PersonAdminController();
+$ctrlCastingAdmin = new CastingAdminController();
+$ctrlMovieAdmin = new MovieAdminController();
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -17,66 +26,60 @@ if (isset($_GET['id'])) {
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'listActors':
-            $ctrlCinema->listActors();
+            $ctrlActor->listActors();
             break;
         case 'detailActor':
-            $ctrlCinema->showActor($id);
+            $ctrlActor->showActor($id);
             break;
         case 'listMovie':
-            $ctrlCinema->listMovies();
+            $ctrlMovie->listMovies();
             break;
         case 'detailMovie':
-            $ctrlCinema->showMovie($id);
+            $ctrlMovie->showMovie($id);
             break;
         case 'director':
-            $ctrlCinema->listRealisators();
+            $ctrlRealisator->listRealisators();
             break;
         case 'detailRealisator':
-            $ctrlCinema->showRealisator($id);
+            $ctrlRealisator->showRealisator($id);
             break;
         case 'showPanelAddPerson':
-            $ctrlAdmin->showPanelAddPerson();
+            $ctrlPersonAdmin->showPanelAddPerson();
             break;
         case 'showPanelAddMovie':
-            $ctrlAdmin->showPanelAddMovie();
+            $ctrlMovieAdmin->showPanelAddMovie();
             break;
         case 'showPanelAddCasting':
-            $ctrlAdmin->showPanelAddCasting();
+            $ctrlCastingAdmin->showPanelAddCasting();
             break;
         case 'showPanelEditPerson':
-            $ctrlAdmin->showPanelEditPerson();
+            $ctrlPersonAdmin->showPanelEditPerson();
             break;
         case 'showPanelEditMovie':
-            $ctrlAdmin->showPanelEditMovie();
+            $ctrlMovieAdmin->showPanelEditMovie();
             break;
         case 'showPanelDeletePerson':
-            $ctrlAdmin->showPanelDeletePerson();
+            $ctrlPersonAdmin->showPanelDeletePerson();
             break;
         case 'showPanelDeleteMovie':
-            $ctrlAdmin->showPanelDeleteMovie();
+            $ctrlMovieAdmin->showPanelDeleteMovie();
             break;
         case 'addPerson':
-            $ctrlAdmin->addPerson();
+            $ctrlPersonAdmin->addPerson();
             break;
         case 'addMovie':
-            $ctrlAdmin->addMovie();
+            $ctrlMovieAdmin->addMovie();
             break;
         case 'addCasting':
-            $ctrlAdmin->addCasting();
+            $ctrlCastingAdmin->addCasting();
             break;
         case 'editPerson':
-            $ctrlAdmin->editPerson();
+            $ctrlPersonAdmin->editPerson();
             break;
         case 'editMovie':
-            $ctrlAdmin->editMovie();
-            break;
-        case 'deletePerson':
-            $ctrlAdmin->deletePerson();
-            break;
-        case 'deleteMovie':
-            $ctrlAdmin->deleteMovie();
+            $ctrlMovieAdmin->editMovie();
             break;
     }
 } else {
-    require "view/home.php";
+    require "view/home/index.php";
 }

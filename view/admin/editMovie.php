@@ -88,12 +88,12 @@
                     <input type="text" name="title" value="">
                 </div>
 
-                <label for="director"> Director </label>
-                <select name="director" class="form-select">
-                    <option value="" disabled>Director</option>
-                    <?php foreach ($allDirectors->fetchAll() as $director) { ?>
-                        <option value="<?= $director['id_director'] ?>">
-                            <?= $director['director'] ?>
+                <label for="realisator"> Realisator </label>
+                <select name="realisator" class="form-select">
+                    <option value="" disabled>Realisator</option>
+                    <?php foreach ($allRealisators->fetchAll() as $realisator) { ?>
+                        <option value="<?= $realisator['id_realisator'] ?>">
+                            <?= $realisator['realisator'] ?>
                         </option>
                     <?php } ?>
                 </select>
