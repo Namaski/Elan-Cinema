@@ -1,13 +1,25 @@
 /* GENERAL */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Stick+No+Bills:wght@200..800&display=swap');
 
 * {
+  font-family: "Manrope", sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
 body {
+  min-height: 100vh;
   background: #013565;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 a {
@@ -20,6 +32,7 @@ a:hover {
 }
 
 /******************** TEMPLATE *****************/
+
 /* HEADER */
 
 header {
@@ -28,10 +41,11 @@ header {
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  padding: 1rem 2rem;
 }
 
 .logo {
-  font-family: 'Post No Bills Jaffna ExtraBold', 'Roboto Condensed';
+  font-family: "Stick No Bills", serif;
   font-weight: 800;
   font-size: 3rem;
   color: #FFC300;
@@ -75,153 +89,96 @@ header {
 
 /******************** HOME *****************/
 
-/* SEARCBAR SECTION */
+/* HERO */
 
-.searchbar-background {
+.hero {
   height: 70vh;
-  background: url('../img/rectangle15.jpeg');
+  background: url('../img/hero_illustration.jpeg');
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.searchbar-section {
-  position: relative;
-
+.hero__searchbar {
+  display: flex;
 }
 
-#search {
-  width: 40rem;
-  height: 4rem;
-  border-radius: 20px;
-  border: none;
+.hero__searchbar-input {
+  width: 35rem;
+  height: 6rem;
+  font-size: 1.6em;
   padding: 1.5rem;
+  border-radius: 10px 0px 0px 10px;
+  border: none;
 }
 
-#send {
-  position: absolute;
-  background-color: #ffc300;
-  color: #013565;
-  right: 0;
-  font-size: 1.6013565em;
-  height: 4rem;
+.hero__searchbar-submit {
+  background-color: rgb(255, 255, 255);
+  height: 6rem;
   width: 6rem;
-  border-radius: 20px;
-  border: 2px solid #00030a;
+  border-radius: 0px 10px 10px 0px;
+  border: none;
+}
+
+.hero__searchbar-submit {
+  mask: 
+  url('../img/svg/search.svg') center/contain no-repeat,
+  linear-gradient(#000 0 0); /* we need this extra layer for mask-composite */
+mask-composite: exclude;
 }
 
 
 /* GENRE SECTION */
 
-.section-2 {
+.genre {
   margin-bottom: 2rem;
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
 
 }
 
-.action {
-  margin-top: 5.3rem;
-  display: inline-block;
-  overflow-wrap: break-word;
-  font-family: 'Manrope';
-  font-weight: 700;
-  font-size: 1rem;
-  color: rgba(255, 195, 0, 0.7);
-}
-
-.horror {
-  overflow-wrap: break-word;
-  font-family: 'Manrope';
-  font-weight: 700;
-  font-size: 1rem;
-  color: rgba(255, 195, 0, 0.7);
-}
-
-.comedy {
-  overflow-wrap: break-word;
-  font-family: 'Manrope';
-  font-weight: 700;
-  font-size: 1rem;
-  color: rgba(255, 195, 0, 0.7);
-}
-
-.fantasy {
-  overflow-wrap: break-word;
-  font-family: 'Manrope';
-  font-weight: 700;
-  font-size: 1rem;
-  color: rgba(255, 195, 0, 0.7);
-}
-
-.genre-box {
-  background: url('../img/rectangle82.png') 50% / cover no-repeat;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 7.8rem 0 0.8rem 0.6rem;
-  width: 21.2rem;
-}
-
-.genre-box-1 {
-  background: url('../img/rectangle5.png');
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 7.8rem 0rem 0.8rem 0;
-  width: 21.2rem;
-
-}
-
-.genre-box-2 {
-  background: url('../img/rectangle83.png') 50% / cover no-repeat;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 7.8rem 0rem 0.8rem 0;
-  width: 21.2rem;
-
-}
-
-.genre-box-3 {
-  background: url('../img/rectangle81.png') 50% / cover no-repeat;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  padding: 2.5rem 0 0.8rem 2rem;
-  width: 21.2rem;
-
-}
-
-.genre-list {
-  margin-bottom: 1.2rem;
-  display: flex;
-  flex-direction: row;
-  column-gap: 0.7rem;
-  width: fit-content;
-}
-
-.choose-agenre {
-  margin-bottom: 1.2rem;
-  display: inline-block;
-  align-self: flex-start;
-  overflow-wrap: break-word;
-  font-family: 'Inter';
-  font-weight: 400;
-  font-size: 1.5rem;
+.genre__title {
+  
+  padding-left: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem 0;
   color: #FFFFFF;
+  text-transform: uppercase;
 }
 
-.rectangle-7 {
-  background: url('../img/rectangle7.png');
-  width: 2.5rem;
-  height: 10rem;
+.genre__list-cards {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+overflow-x: scroll;
 }
+
+.genre__card {
+  position: relative;
+  overflow: hidden;
+  width: 24%;
+  min-width: 350px;
+  height: 170px;
+}
+
+.genre__card img {
+
+  width: 100%;
+  filter: brightness(80%);
+
+}
+
+.genre__card-text {
+  position: absolute;
+  font-weight: 1000;
+  font-size: 2rem;
+  color: rgb(255, 196, 0);
+  text-align: center;
+  transform: translate(-50%, -50%);
+  top: 80%;
+  left: 50%;
+}
+
 
 .line-1 {
   background: #FFC300;

@@ -1,5 +1,5 @@
-<?php 
-require "view/components/header.php"; 
+<?php
+require "view/components/header.php";
 require "view/components/footer.php";
 ?>
 
@@ -21,14 +21,15 @@ require "view/components/footer.php";
 </head>
 
 <body>
-        
-        <?=$header ?>
 
-       
-        <?=$content ?>
+    <?= $header ?>
 
-        
-        <?=$footer ?>
+    <main>
+        <?= $content ?>
+    </main>
+
+
+    <?= $footer ?>
 
 
 </body>

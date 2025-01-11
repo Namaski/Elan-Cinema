@@ -2,51 +2,60 @@
 
 <!-- SEARCHBAR SECTION -->
 
-<div>
-    <article class="searchbar-background">
-        <form class="searchbar-section" action="" method="get">
-            <input id="search" type="text" placeholder="Search a movie, an actor or a director">
-            <input id="send" type="submit" value="Search">
-        </form>
-    </article>
-</div>
+<section class="hero">
+
+    <form class="hero__searchbar" action="" method="get">
+        <input class="hero__searchbar-input" id="search" type="text" placeholder="Search a movie, an actor or a director">
+        <input class="hero__searchbar-submit" id="send" type="submit" value="">
+    </form>
+
+</section>
 
 <!-- GENRE SECTION -->
 
-<article class="section-2">
-    <div class="choose-agenre">
+<section class="genre">
+
+    <h2 class="genre__title">
         Choose a genre
-    </div>
-    <div class="genre-list">
-        <div class="genre-box-3">
-            <img class="arrow-2" src="./public/img/svg/arrow2_x2.svg" />
-            <div class="action">
+    </h2>
+
+    <div class="genre__list-cards">
+
+        <div class="genre__card">
+            <img src="./public/img/action.png" alt="action">
+            <p class="genre__card-text">
                 Action
-            </div>
+            </p>
         </div>
-        <div class="genre-box-2">
-            <span class="horror">
+        
+        <div class="genre__card">
+            <img src="./public/img/horror.png" alt="horror">
+            <p class="genre__card-text">
                 Horror
-            </span>
+            </p>
         </div>
-        <div class="genre-box-1">
-            <span class="comedy">
+        
+        <div class="genre__card">
+            <img src="./public/img/comedy.png" alt="comedy">
+            <p class="genre__card-text">
                 Comedy
-            </span>
+            </p>
         </div>
-        <div class="genre-box">
-            <span class="fantasy">
+        
+        <div class="genre__card">
+            <img src="./public/img/fantasy.png" alt="fantasy">
+            <p class="genre__card-text">
                 Fantasy<br />
 
-            </span>
-            <img class="arrow-1" src="./public/img/svg/arrow1_x2.svg" />
+            </p>
         </div>
-        <div class="rectangle-7">
-        </div>
+        
+
     </div>
-    <div class="line-1">
-    </div>
-</article>
+
+    <div class="line-1"></div>
+
+</section>
 
 <?php $content = ob_get_clean();
 

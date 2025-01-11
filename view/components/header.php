@@ -9,13 +9,13 @@
             </a>
             <ul class="navbar">
                 <li>
-                    <a href="index.php?action=listActors">
-                        ACTOR
+                    <a href="index.php?action=listMovie">
+                        MOVIE
                     </a>
                 </li>
                 <li>
-                    <a href="index.php?action=listMovie">
-                        MOVIE
+                    <a href="index.php?action=listActors">
+                        ACTOR
                     </a>
                 </li>
                 <li>
