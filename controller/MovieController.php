@@ -13,9 +13,9 @@ class MovieController
         SELECT m.title, DATE_FORMAT(m.release_date, "%Y") AS date, m.id_movie
         FROM movie m    
         ');
-        $title= "Movies :";
+        $title= "Movies";
 
-        require "view/movie/listMovies.php";
+        require "view/list/listMovies.php";
     }
 
     public function showMovie(int $id)
@@ -29,8 +29,8 @@ class MovieController
         
         $showMovie->execute(["id_movie" => $id]);
     
-        $title = "Movie :";
+        $title = "Movie";
 
-        require "view/movie/detailMovie.php";
+        require "view/detail/detailMovie.php";
     }
 }

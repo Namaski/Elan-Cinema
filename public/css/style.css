@@ -22,14 +22,16 @@ main {
   flex: 1;
 }
 
+a:hover {
+  color: #FFC300;
+}
+
 a {
   text-decoration: none;
   color: #FFFFFF;
 }
 
-a:hover {
-  color: #FFC300;
-}
+
 
 /******************** TEMPLATE *****************/
 
@@ -60,15 +62,9 @@ header {
 }
 
 .navbar li {
-  color: #FFFFFF;
   font-weight: 500;
   font-size: 1.5rem;
   list-style-type: none;
-}
-
-.navbar li a {
-  color: #FFFFFF;
-  text-decoration: none;
 }
 
 .admin-logo {
@@ -83,204 +79,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  color: white;
   padding: 1.6rem 0 1.6rem 0.1rem;
 
-}
-
-/******************** HOME *****************/
-
-/* HERO */
-
-.hero {
-  height: 70vh;
-  background: url('../img/hero_illustration.jpeg');
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero__searchbar {
-  display: flex;
-}
-
-.hero__searchbar-input {
-  width: 35rem;
-  height: 6rem;
-  font-size: 1.6em;
-  padding: 1.5rem;
-  border-radius: 10px 0px 0px 10px;
-  border: none;
-}
-
-.hero__searchbar-submit {
-  background-color: rgb(255, 255, 255);
-  height: 6rem;
-  width: 6rem;
-  border-radius: 0px 10px 10px 0px;
-  border: none;
-}
-
-.hero__searchbar-submit {
-  mask: 
-  url('../img/svg/search.svg') center/contain no-repeat,
-  linear-gradient(#000 0 0); /* we need this extra layer for mask-composite */
-mask-composite: exclude;
-}
-
-
-/* GENRE SECTION */
-
-.genre {
-  margin-bottom: 2rem;
-
-}
-
-.genre__title {
-  
-  padding-left: 2rem;
-  font-size: 2rem;
-  font-weight: 600;
-  margin: 1rem 0;
-  color: #FFFFFF;
-  text-transform: uppercase;
-}
-
-.genre__list-cards {
-display: flex;
-flex-direction: row;
-justify-content: space-around;
-overflow-x: scroll;
-}
-
-.genre__card {
-  position: relative;
-  overflow: hidden;
-  width: 24%;
-  min-width: 350px;
-  height: 170px;
-}
-
-.genre__card img {
-
-  width: 100%;
-  filter: brightness(80%);
-
-}
-
-.genre__card-text {
-  position: absolute;
-  font-weight: 1000;
-  font-size: 2rem;
-  color: rgb(255, 196, 0);
-  text-align: center;
-  transform: translate(-50%, -50%);
-  top: 80%;
-  left: 50%;
-}
-
-
-.line-1 {
-  background: #FFC300;
-  height: 0.1rem;
-}
-
-/******************** LIST *****************/
-.list-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #FFFFFF;
-}
-
-/* searchbar */
-.list-searchbar {
-  display: flex;
-  margin-bottom: 1rem;
-}
-
-.filter {
-  margin: auto 2rem;
-}
-
-/* list-element */
-.list-section h2{
-  margin: 0 1rem;
-}
-
-.list-element {
-  margin-bottom: 0.5rem;
-}
-
-.list-element a{
-  color: #FFFFFF;
-}
-
-.list-element a:hover {
-  color: #FFC300;
-}
-
-/* ADMIN SECTION */
-
-.admin-section {
-  display: flex;
-  color: #FFFFFF;
-}
-
-.admin-section h4 {
-  font-size: 2em;
-  margin-bottom: 1.6rem;
-}
-
-.side-panel {
-  width: 20vw;
-  margin-right: 1.6em;
-}
-
-.side-panel ul li{
-  margin-bottom: 2rem;
-}
-
-.admin-panel {
-  width: 70vw;
-  display: flex;
-  flex-direction: column;
-}
-
-#addPerson>div {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 0;
-}
-
-#addPerson>:first-child {
-  flex-direction: row;
-}
-
-#addPerson>:first-child>div {
-  width: 20em;
-}
-
-#addPerson>div input {
-width: 70%;
-}
-
-#addPerson>.radioForm {
-  flex-direction: row;
-}
-
-#addPerson>.radioForm>:last-child {
-  margin-left: 2rem; 
-}
-
-#addPerson input {
-  height: 2em;
-  border-radius: 10px;
-  border: none;
-  width: 10em;
-}
-
-.admin-panel label {
-  margin: 0.5rem;
-  display: block;
 }

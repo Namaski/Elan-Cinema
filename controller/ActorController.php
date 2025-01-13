@@ -15,9 +15,9 @@ class ActorController
         INNER JOIN person p
         ON a.id_person = p.id_person
         ");
-        $title = "Actors :";
+        $title = "Actors";
 
-        require "view/actor/listActors.php";
+        require "view/list/listActors.php";
     }
 
 
@@ -34,9 +34,9 @@ class ActorController
         ");
 
         $showActor->execute([ "id_actor" => $id]);
-        $title = "Actor :";
+        $title = "Actor";
 
-        require "view/actor/detailActor.php";
+        require "view/detail/detailActor.php";
     }
 
     

@@ -123,4 +123,4 @@
 
 <?php $content = ob_get_clean();
 
-require "view/template.php";
+require "view/admin/index.php";

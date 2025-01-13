@@ -1,0 +1,64 @@
+/* ADMIN SECTION */
+
+.admin-section {
+    display: flex;
+    color: #FFFFFF;
+  }
+  
+  .admin-section h4 {
+    font-size: 2em;
+    margin-bottom: 1.6rem;
+  }
+  
+  .side-panel {
+    width: 20vw;
+    margin-right: 1.6em;
+  }
+  
+  .side-panel ul li{
+    margin-bottom: 2rem;
+  }
+  
+  .admin-panel {
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #addPerson>div {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+  }
+  
+  #addPerson>:first-child {
+    flex-direction: row;
+  }
+  
+  #addPerson>:first-child>div {
+    width: 20em;
+  }
+  
+  #addPerson>div input {
+  width: 70%;
+  }
+  
+  #addPerson>.radioForm {
+    flex-direction: row;
+  }
+  
+  #addPerson>.radioForm>:last-child {
+    margin-left: 2rem; 
+  }
+  
+  #addPerson input {
+    height: 2em;
+    border-radius: 10px;
+    border: none;
+    width: 10em;
+  }
+  
+  .admin-panel label {
+    margin: 0.5rem;
+    display: block;
+  }

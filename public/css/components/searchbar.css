@@ -1,0 +1,28 @@
+.searchbar {
+  width: fit-content;
+  display: flex;
+  margin: 0 auto;
+}
+
+.searchbar-input {
+  width: 30rem;
+  height: 3rem;
+  font-size: 1.2em;
+  padding: 1.5rem;
+  border-radius: 10px 0px 0px 10px;
+  border: none;
+}
+
+.searchbar-submit {
+  background-color: rgb(255, 255, 255);
+  height: 3rem;
+  width: 6rem;
+  border-radius: 0px 10px 10px 0px;
+  border: none;
+}
+
+.searchbar-submit {
+  mask: url("../../img/svg/search.svg") center/contain no-repeat,
+    linear-gradient(#000 0 0); /* we need this extra layer for mask-composite */
+  mask-composite: exclude;
+}

@@ -1,0 +1,99 @@
+/* HERO */
+
+.hero {
+  height: 70vh;
+  background: url("../../img/hero_illustration.jpeg");
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero__searchbar {
+  display: flex;
+}
+
+.hero__searchbar-input {
+  width: 35rem;
+  height: 6rem;
+  font-size: 1.6em;
+  padding: 1.5rem;
+  border-radius: 10px 0px 0px 10px;
+  border: none;
+}
+
+.hero__searchbar-submit {
+  background-color: rgb(255, 255, 255);
+  height: 6rem;
+  width: 6rem;
+  border-radius: 0px 10px 10px 0px;
+  border: none;
+}
+
+.hero__searchbar-submit {
+  mask: url("../../img/svg/search.svg") center/contain no-repeat,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+/* GENRE SECTION */
+
+.genre {
+  margin-bottom: 2rem;
+}
+
+.genre__title {
+  padding-left: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.genre__list-cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  overflow-x: auto;
+  cursor: grab;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.genre__list-cards:active {
+  cursor: grabbing;
+}
+
+.genre__list-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.genre__card {
+  position: relative;
+  overflow: hidden;
+  width: 24%;
+  min-width: 350px;
+  height: 170px;
+}
+
+.genre__card img {
+  width: 100%;
+  filter: brightness(80%);
+}
+
+.genre__card-text {
+  position: absolute;
+  font-weight: 1000;
+  font-size: 2rem;
+  color: rgb(255, 196, 0);
+  text-align: center;
+  transform: translate(-50%, -50%);
+  top: 80%;
+  left: 50%;
+}
+
+.line-1 {
+  background: #ffc300;
+  height: 0.1rem;
+}

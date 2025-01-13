@@ -16,9 +16,9 @@ class RealisatorController
         INNER JOIN person p
         ON r.id_person = p.id_person
         ");
-        $title = "Realisators :";
+        $title = "Realisators";
 
-        require "view/realisator/listRealisators.php";
+        require "view/list/listRealisators.php";
     }
     
 
@@ -36,9 +36,9 @@ class RealisatorController
         $showRealisator->execute(["id_realisator" => $id]);
         
         
-        $title = "Realisator :";
+        $title = "Realisator";
 
-        require "view/realisator/detailRealisator.php";
+        require "view/detail/detailRealisator.php";
     }
     
 }

@@ -58,5 +58,10 @@
 </section>
 
 <?php $content = ob_get_clean();
+$style = '
+<link rel="stylesheet" href="./public/css/pages/home.css">
+
+';
+$script = '<script src="./public/script/script.js"></>';
 
 require "view/template.php";
