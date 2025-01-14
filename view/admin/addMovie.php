@@ -48,16 +48,16 @@
     <div class="admin-panel">
         <h4>Insertion :</h4>
 
-        <form action="index.php?action=addMovie" method="post" id="addPerson">
+        <form action="index.php?action=addMovie" method="post" enctype="multipart/form-data" id="addPerson">
 
             <label for="title"> Title </label>
             <div>
                 <input type="text" name="title">
             </div>
 
-            <label for="director"> Realisator </label>
-            <select name="director" class="form-select">
-                <option value="" disabled>Director</option>
+            <label for="realisator"> Realisator </label>
+            <select name="realisator" class="form-select">
+                <option value="" disabled>Realisator</option>
                 <?php foreach ($allRealisators->fetchAll() as $realisator) { ?>
                     <option value="<?= $realisator['id_realisator'] ?>">
                         <?= $realisator['realisator'] ?>
@@ -65,17 +65,19 @@
                 <?php } ?>
             </select>
 
+            <label for="picture"> Picture </label>
             <div>
-                <label for="release"> Release
-                </label>
+                <input type="file" name="picture" id="picture">
+            </div>
+
+            <div>
+                <label for="release"> Release </label>
                 <input type="date" name="release">
 
-                <label for="duration"> Duration
-                </label>
+                <label for="duration"> Duration </label>
                 <input type="number" name="duration">
 
                 <label for="genre"> Genre </label>
-
                 <select name="genre" class="form-select">
 
                     <option value="" disabled>Genre</option>
@@ -85,7 +87,6 @@
                         </option>
                     <?php } ?>
                 </select>
-
             </div>
 
             <div>

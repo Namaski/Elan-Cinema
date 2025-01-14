@@ -35,17 +35,67 @@ class MovieAdminController
 
         // FILTER DATA
         if (isset($_POST['submit'])) {
+            
             $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $release = filter_input(INPUT_POST, "release", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $duration = filter_input(INPUT_POST, "duration", FILTER_SANITIZE_NUMBER_INT);
             $synopsis = filter_input(INPUT_POST, "synospsis", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $director = filter_input(INPUT_POST, "director", FILTER_SANITIZE_NUMBER_INT);
+            $realisator = filter_input(INPUT_POST, "realisator", FILTER_SANITIZE_NUMBER_INT);
             $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_NUMBER_INT);
+
+            // var_dump($_POST);
+            // die;
+            // ADD THE IMG 
+            $target_dir = "./public/img/uploads/";
+            $target_file = $target_dir . basename($_FILES["picture"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            // Check if image file is a actual image or fake image
+            $check = getimagesize($_FILES["picture"]["tmp_name"]);
+
+            if ($check == false) {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            }
+
+            // Check if file already exists
+            if (file_exists($target_file)) {
+                echo "Sorry, file already exists.";
+                $uploadOk = 0;
+            }
+
+            // Check file size
+            if ($_FILES["picture"]["size"] > 500000) {
+                echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+
+            // Allow certain file formats
+            if (
+                $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif"
+            ) {
+                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                $uploadOk = 0;
+            }
+
+            // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+                // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
+                    echo "The file " . htmlspecialchars(basename($_FILES["picture"]["name"])) . " has been uploaded.";
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            }
 
             // ADD MOVIE
 
             $addMovie = $pdo->prepare(
-                "INSERT INTO movie (title, release_date, duree, synopsis, id_director)
+                "INSERT INTO movie (title, release_date, duration, synopsis, id_realisator)
                     VALUES (:title, :release, :duration, :synopsis, :id_realisator)"
             );
 
@@ -54,7 +104,7 @@ class MovieAdminController
                 ':release' => $release,
                 ':duration' => $duration,
                 ':synopsis' => $synopsis,
-                ':id_realisator' => $director
+                ':id_realisator' => $realisator
             ]);
 
             // GET MOVIE ID
