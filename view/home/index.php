@@ -12,44 +12,30 @@
 </section>
 
 <!-- GENRE SECTION -->
-
 <section class="genre">
-
     <h2 class="genre__title">
         Choose a genre
     </h2>
 
     <div class="genre__list-cards">
+        <?php
+        foreach ($allGenres->fetchall() as $genre) { ?>
 
-        <div class="genre__card">
-            <img src="./public/img/action.png" alt="action">
-            <p class="genre__card-text">
-                Action
-            </p>
-        </div>
-        
-        <div class="genre__card">
-            <img src="./public/img/horror.png" alt="horror">
-            <p class="genre__card-text">
-                Horror
-            </p>
-        </div>
-        
-        <div class="genre__card">
-            <img src="./public/img/comedy.png" alt="comedy">
-            <p class="genre__card-text">
-                Comedy
-            </p>
-        </div>
-        
-        <div class="genre__card">
-            <img src="./public/img/fantasy.png" alt="fantasy">
-            <p class="genre__card-text">
-                Fantasy<br />
+            <a href="index.php?action=listMoviesByGenre&id=<?= $genre["id_genre"] ?>">
 
-            </p>
-        </div>
-        
+                <div class="genre__card">
+
+                    <img src="<?= $genre["picture"] ? $genre["picture"] : './public/img/svg/movie-poster.svg' ?>" alt="<?= $genre['title'] ?>" onerror="this.src='./public/img/svg/movie-poster.svg'; this.onerror=null;">
+
+                    <p class="genre__card-text">
+                        <?= $genre["name"] ?>
+                    </p>
+
+                </div>
+
+            </a>
+
+        <?php }; ?>
 
     </div>
 

@@ -11,7 +11,8 @@
 <section class="result">
 
   <h2 class="result__title">
-    <?= $title ?>
+    <?php $genre = $title->fetch(); ?>
+    <?= $genre["name"] ?>
   </h2>
 
   <div class="result__list">

@@ -1,20 +1,38 @@
-# Elan-CINEMA Filmopedia
-A website that catalogs movies grouped in a database.
-Here we employ an MVC* pattern, with HTTP requests redirecting arguments in the URL.
+*Project built using vanilla PHP*
 
-* This project is still in progress but, it will be possible to display views for:
+# Filmopedia
 
-    * An individual or multiple individuals (actor or director)
-    * A movie or multiple movies
-    * Sorting movies by genre
-    * Listing all movie genres
-    * The casting of a movie
-    * A movie possesses a title, a release date, a poster, a summary, a single director, one or several genres, and actors who have appeared in the film.
+A website that catalogs movies organized in a database.\
+This project follows an MVC\* pattern, with HTTP requests routing arguments through the URL.
 
-* The website will also include an administrative section allowing the manipulation of the data: creating, modifying, or deleting a movie, similarly for individuals.
+*This project is still in progress. It will eventually support features such as:*
 
-\* Note: MVC = Model-View-Controllers
+- Displaying views for:
+  - An individual or multiple individuals (actors or directors).
+  - A movie or multiple movies.
+  - Sorting movies by genre.
+  - Listing all movie genres.
+  - Displaying the cast of a movie.
+- Each movie will include a title, release date, poster, summary, a single director, one or more genres, and the actors who appeared in it.
+- An administrative section to manage data, enabling the creation, modification, and deletion of movies and individuals.
+
+\* *Note: MVC = Model-View-Controller*
+
+---
+
+### TODO (Sorted by Priority)
+
+- Anonymize the data upon deletion by utilizing the active field: 
+- Create a controller for the search bar with tabs for movies, actors, and directors.
+- Improve the admin panel (e.g., make it more practical, similar to EasyAdminBundle).
+- Implement user authentication.
+- Enhance the design.
+- Make the website responsive.
+- Create a custom 404 "Page Not Found."
+- Improve the router system.
+
 
 ## Demo
 
-Images and gifs incoming...
+Images and GIFs are coming soon...
+

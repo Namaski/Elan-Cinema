@@ -20,7 +20,7 @@
                 </li>
                 <li>
                     <a href="index.php?action=director">
-                        DIRECTOR
+                        REALISATOR
                     </a>
                 </li>
             </ul>

@@ -11,7 +11,7 @@ class RealisatorController
     {
         $pdo = Connect::seConnecter();
         $allRealisators = $pdo->query("
-        SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'realisator', r.id_realisator
+        SELECT CONCAT(p.first_name, ' ', p.last_name) AS realisator, p.*, r.*
         FROM realisator r
         INNER JOIN person p
         ON r.id_person = p.id_person
@@ -26,7 +26,7 @@ class RealisatorController
     {
         $pdo = Connect::seConnecter();
         $showRealisator = $pdo->prepare("
-        SELECT CONCAT(p.firstname, ' ', p.lastname) AS realisator, p.birthday_date, p.sex, r.picture
+        SELECT CONCAT(p.first_name, ' ', p.last_name) AS realisator, p.*, r.*
         FROM realisator r
         INNER JOIN person p
         ON r.id_person = p.id_person

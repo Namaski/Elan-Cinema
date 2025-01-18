@@ -1,5 +1,6 @@
 <?php
 
+use Controller\HomeController;
 use Controller\MovieController;
 use Controller\ActorController;
 use Controller\RealisatorController;
@@ -12,6 +13,7 @@ spl_autoload_register(function ($class_name) {
 });
 
 
+$ctrlHome = new HomeController();
 $ctrlMovie = new MovieController();
 $ctrlActor = new ActorController();
 $ctrlRealisator = new RealisatorController();
@@ -33,6 +35,9 @@ if (isset($_GET['action'])) {
             break;
         case 'listMovie':
             $ctrlMovie->listMovies();
+            break;
+        case 'listMoviesByGenre':
+            $ctrlMovie->listMoviesByGenre($id);
             break;
         case 'detailMovie':
             $ctrlMovie->showMovie($id);
@@ -79,7 +84,10 @@ if (isset($_GET['action'])) {
         case 'editMovie':
             $ctrlMovieAdmin->editMovie();
             break;
+        default:
+        $ctrlHome->index();
+        // TODO : 404 PAGE NOT FOUND
     }
 } else {
-    require "view/home/index.php";
+    $ctrlHome->index();
 }

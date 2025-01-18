@@ -11,11 +11,13 @@ $realisator = $showRealisator->fetch();
   <div class="person__detail-container">
 
     <div class="person__detail-image">
-      <img src="<?= $realisator['picture'] ?>" alt="<?= $realisator['realisator'] ?>">
+
+    <img src="<?=$realisator["picture"] ? $realisator["picture"] : './public/img/svg/person-poster.svg' ?>" alt="<?= $realisator['realisator'] ?>" onerror="this.src='./public/img/svg/person-poster.svg'; this.onerror=null;">
+
     </div>
 
     <div class="person__detail-info">
-      <p><strong>Date de naissance :</strong> <?= date("d M Y", strtotime($realisator["birthday_date"])) ?></p>
+      <p><strong>Date de naissance :</strong> <?= date("d M Y", strtotime($realisator["birthdate"])) ?></p>
       <p><strong>Sexe :</strong> <?= ucfirst($realisator["sex"]) ?></p>
     </div>
 

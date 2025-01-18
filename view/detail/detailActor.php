@@ -11,11 +11,13 @@ $actor = $showActor->fetch();
   <div class="person__detail-container">
 
     <div class="person__detail-image">
-      <img src="<?= $actor['picture'] ?>" alt="<?= $actor['actor'] ?>">
+
+    <img src="<?=$actor["picture"] ? $actor["picture"] : './public/img/svg/person-poster.svg' ?>" alt="<?= $actor['actor'] ?>" onerror="this.src='./public/img/svg/person-poster.svg'; this.onerror=null;">
+
     </div>
 
     <div class="person__detail-info">
-      <p><strong>Date de naissance :</strong> <?= date("d M Y", strtotime($actor["birthday_date"])) ?></p>
+      <p><strong>Date de naissance :</strong> <?= date("d M Y", strtotime($actor["birthdate"])) ?></p>
       <p><strong>Sexe :</strong> <?= ucfirst($actor["sex"]) ?></p>
     </div>
 

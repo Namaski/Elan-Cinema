@@ -10,7 +10,7 @@ class ActorController
     {
         $pdo = Connect::seConnecter();
         $allActors = $pdo->query("
-        SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'actor', a.id_actor
+        SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'actor', p.*, a.*
         FROM actor a
         INNER JOIN person p
         ON a.id_person = p.id_person
@@ -26,7 +26,7 @@ class ActorController
         
         $pdo = Connect::seConnecter();
         $showActor = $pdo->prepare("
-        SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'actor', p.birthday_date, p.sex, a.picture, a.id_actor
+        SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'actor', p.*, a.*
         FROM actor a
         INNER JOIN person p
         ON a.id_person = p.id_person

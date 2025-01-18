@@ -23,7 +23,7 @@
         <article class="result__list-card">
 
 
-          <img class="result__list-image" src="./public/img/action.png" alt="<?= $element['actor'] ?>">
+        <img class="result__list-image" src="<?=$element["picture"] ? $element["picture"] : './public/img/svg/person-poster.svg' ?>" alt="<?= $element['actor'] ?>" onerror="this.src='./public/img/svg/person-poster.svg'; this.onerror=null;" >
 
           <p class="result__list-text"><?= $element["actor"] ?></p>
 

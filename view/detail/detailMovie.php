@@ -10,7 +10,9 @@ $movie = $showMovie->fetch(); ?>
   <div class="movie__detail-container">
 
     <div class="movie__detail-image">
-      <img src="<?= $movie['picture'] ?>" alt="<?= $movie['title'] ?>">
+
+    <img src="<?=$movie["picture"] ? $movie["picture"] : './public/img/svg/movie-poster.svg' ?>" alt="<?= $movie['title'] ?>" onerror="this.src='./public/img/svg/movie-poster.svg'; this.onerror=null;" >
+    
     </div>
 
     <div class="movie__detail-info">
