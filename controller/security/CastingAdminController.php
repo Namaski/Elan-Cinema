@@ -30,7 +30,7 @@ class CastingAdminController
             ]);
 
             $allActors = $pdo->query(
-                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'actor', a.id_actor
+                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'actor', a.id_actor
                 FROM actor a
                 INNER JOIN person p
                 ON a.id_person = p.id_person
@@ -56,42 +56,43 @@ class CastingAdminController
         }
     }
 
-        /////////////ADD CASTING////////////////
-        public function addCasting()
-        {
-    
-            $pdo = Connect::seConnecter();
-    
-            // FILTER DATA
-            if (isset($_POST['submit'])) {
-                $id_movie = filter_input(INPUT_POST, "movie", FILTER_SANITIZE_NUMBER_INT);
-                $id_actor = filter_input(INPUT_POST, "actor", FILTER_SANITIZE_NUMBER_INT);
-                $id_role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
-    
-    
-                // ADD Casting
-    
-                $addMovie = $pdo->prepare(
-                    "INSERT INTO casting (id_movie, id_actor, id_role)
+    /////////////ADD CASTING////////////////
+    public function addCasting()
+    {
+
+        $pdo = Connect::seConnecter();
+
+        // FILTER DATA
+        if (isset($_POST['submit'])) {
+            $id_movie = filter_input(INPUT_POST, "movie", FILTER_SANITIZE_NUMBER_INT);
+            $id_actor = filter_input(INPUT_POST, "actor", FILTER_SANITIZE_NUMBER_INT);
+            $id_role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
+
+
+            // ADD Casting
+
+            $addMovie = $pdo->prepare(
+                "INSERT INTO casting (id_movie, id_actor, id_role)
                 VALUES (:id_movie, :id_actor, :id_role)"
-                );
-    
-                $addMovie->execute([
-                    ':id_movie' => $id_movie,
-                    ':id_actor' => $id_actor,
-                    ':id_role' => $id_role
-                ]);
-            }
-    
-            $allMovies =  $pdo->query(
-                "SELECT m.title , m.id_movie
-                FROM movie m"
             );
-    
-            //UNSET ID_MOVIE TO SELECT NEW MOVIE (MAYBE ADD RETURN BUTTON INSTEAD) 
-            unset($id_movie);
-    
-            header('Location: index.php?action=showPanelAddCasting');
+
+            $addMovie->execute([
+                ':id_movie' => $id_movie,
+                ':id_actor' => $id_actor,
+                ':id_role' => $id_role
+            ]);
         }
 
+        $allMovies =  $pdo->query(
+            "SELECT m.title , m.id_movie
+                FROM movie m"
+        );
+
+        //UNSET ID_MOVIE TO SELECT NEW MOVIE (MAYBE ADD RETURN BUTTON INSTEAD) 
+        unset($id_movie);
+
+        header('Location: index.php?action=showPanelAddCasting');
+    }
+
+    
 }

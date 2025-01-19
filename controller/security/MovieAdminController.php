@@ -18,7 +18,7 @@ class MovieAdminController
         );
 
         $allRealisators = $pdo->query(
-            "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'realisator', r.id_realisator
+            "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'realisator', r.id_realisator
         FROM realisator r
         INNER JOIN person p
         ON r.id_person = p.id_person"
@@ -156,7 +156,7 @@ class MovieAdminController
             ]);
 
             $allActors = $pdo->query(
-                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'actor', a.id_actor
+                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'actor', a.id_actor
                 FROM actor a
                 INNER JOIN person p
                 ON a.id_person = p.id_person
@@ -170,7 +170,7 @@ class MovieAdminController
             );
 
             $allRealisators = $pdo->query(
-                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'realisator', r.id_realisator
+                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'realisator', r.id_realisator
             FROM realisator r
             INNER JOIN person p
             ON r.id_person = p.id_person"
@@ -234,6 +234,19 @@ class MovieAdminController
 
     ////////SHOW PANEL DELETE MOVIE/////////
     public function showPanelDeleteMovie()
+    {
+        $pdo = Connect::seConnecter();
+
+        $showAllMovies =  $pdo->query(
+            "SELECT m.title , m.id_movie
+                FROM movie m"
+        );
+
+        require "view/admin/deleteMovie.php";
+    }
+
+    ////////SHOW PANEL DELETE MOVIE/////////
+    public function deleteMovie()
     {
         $pdo = Connect::seConnecter();
 

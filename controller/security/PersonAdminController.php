@@ -88,7 +88,7 @@ class PersonAdminController
 
             // SHOW PERSON SELECTED
             $showPerson = $pdo->prepare(
-                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'person', p.id_person
+                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'person', p.id_person
                 FROM person p
                 WHERE p.id_person = :id_person"
 
@@ -104,7 +104,7 @@ class PersonAdminController
         else {
             // ALL PERSON LIST
             $showAllPersons = $pdo->query(
-                "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'person', p.id_person
+                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'person', p.id_person
                 FROM person p"
             );
 
@@ -170,7 +170,7 @@ class PersonAdminController
         $pdo = Connect::seConnecter();
 
         $showAllPersons = $pdo->query(
-            "SELECT CONCAT(p.firstname, ' ', p.lastname) AS 'person', p.id_person
+            "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'person', p.id_person
                 FROM person p
                 LEFT JOIN realisator r
                 ON p.id_person = r.id_person
