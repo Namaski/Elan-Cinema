@@ -48,17 +48,14 @@ if (isset($_GET['action'])) {
         case 'detailRealisator':
             $ctrlRealisator->showRealisator($id);
             break;
-        case 'showPanelAddPerson':
-            $ctrlPersonAdmin->showPanelAddPerson();
+        case 'showPanelPerson':
+            $ctrlPersonAdmin->showPanelPerson();
             break;
-        case 'showPanelAddMovie':
-            $ctrlMovieAdmin->showPanelAddMovie();
+        case 'showPanelMovie':
+            $ctrlMovieAdmin->showPanelMovie();
             break;
-        case 'showPanelAddCasting':
-            $ctrlCastingAdmin->showPanelAddCasting();
-            break;
-        case 'showPanelEditPerson':
-            $ctrlPersonAdmin->showPanelEditPerson();
+        case 'showPanelCasting':
+            $ctrlCastingAdmin->showPanelCasting();
             break;
         case 'showPanelEditMovie':
             $ctrlMovieAdmin->showPanelEditMovie();

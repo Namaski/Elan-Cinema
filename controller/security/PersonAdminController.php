@@ -8,9 +8,9 @@ class PersonAdminController
 {
 
     ////////SHOW PANEL PERSON/////////
-    public function showPanelAddPerson()
+    public function showPanelPerson()
     {
-        require "view/admin/addPerson.php";
+        require "view/admin/person/person.php";
     }
 
 

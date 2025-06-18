@@ -51,14 +51,14 @@
         <h4>Delete :</h4>
 
         <!-- I SHOULD PUT A LIST OF ACTOR AND DIRECTOR INSTEAD OF PERSON LIST IN THE FUTURE -->
-            <form action="index.php?action=deleteMovie" method="post">
+            <form action="index.php?action=deletePerson" method="post">
 
-                <label for="movie"> Select the movie</label>
-                <select name="movie" class="form-select" id="movie">
-                    <option value=""> --movie-- </option>
-                    <?php foreach ($showAllMovies->fetchAll() as $movie) { ?>
-                        <option value="<?= $movie['id_movie'] ?>">
-                            <?= $movie['title'] ?>
+                <label for="person"> Select the person</label>
+                <select name="person" class="form-select" id="person">
+                    <option value=""> --Person-- </option>
+                    <?php foreach ($showAllPersons->fetchAll() as $person) { ?>
+                        <option value="<?= $person['id_person'] ?>">
+                            <?= $person['person'] ?>
                         </option>
                     <?php } ?>
                     <input type="submit" value="Send">
@@ -72,5 +72,5 @@
 
 <?php $content = ob_get_clean();
 
-require "view/admin/index.php";
+require "view/admin/template.php";
 

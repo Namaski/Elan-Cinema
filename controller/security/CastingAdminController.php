@@ -9,7 +9,7 @@ class CastingAdminController
 
     ////////SHOW PANEL CASTING/////////
 
-    public function showPanelAddCasting()
+    public function showPanelCasting()
     {
         $pdo = Connect::seConnecter();
 
@@ -43,7 +43,7 @@ class CastingAdminController
                 "
             );
 
-            require "view/admin/addCasting.php";
+            require "view/admin/movie/addCasting.php";
         }
         // ELSE GET ALL MOVIES
         else {

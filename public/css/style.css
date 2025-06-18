@@ -43,13 +43,13 @@ header {
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  padding: 1rem 2rem;
+  padding: 1em 2em;
 }
 
 .logo {
   font-family: "Stick No Bills", serif;
   font-weight: 800;
-  font-size: 3rem;
+  font-size: 3em;
   color: #FFC300;
 }
 
@@ -63,13 +63,13 @@ header {
 
 .navbar li {
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   list-style-type: none;
 }
 
 .admin-logo {
-  width: 6.3rem;
-  height: 6.3rem;
+  width: 6.3em;
+  height: 6.3em;
 }
 
 /* FOOTER */
@@ -80,6 +80,6 @@ header {
   flex-direction: row;
   justify-content: center;
   color: white;
-  padding: 1.6rem 0 1.6rem 0.1rem;
+  padding: 1.6em 0 1.6em 0.1em;
 
 }

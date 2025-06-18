@@ -136,5 +136,5 @@
 
 <?php $content = ob_get_clean();
 
-require "view/admin/index.php";
+require "view/admin/template.php";
 

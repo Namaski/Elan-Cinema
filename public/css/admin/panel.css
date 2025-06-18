@@ -1,0 +1,65 @@
+.admin-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content {
+    margin-top: 1em;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.content-top {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.content-top-add {
+    position: relative;
+    font-size: 1.6em;
+    color: #FFC300;
+    font-weight: 700;
+}
+
+.content-top-add::before {
+    content: '';
+    position: absolute;
+    left: -44px;
+    background-image: url("../../img/svg/plus_sign.svg");
+    background-size: contain;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+}
+
+.table-head-row{
+    height: 5em;
+}
+.content-table {
+    width: 100%;
+}
+
+.table-id-col{
+    width: 10%;
+}
+/* col */
+.table-active-col{
+    width: 13%;
+}
+
+.table-title-col{
+    width: 57%;
+}
+
+.table-actions-col{
+    width: 20%;
+}
+/* row */
+.table-id-row, .table-active-row, .table-actions-row{
+    text-align: center;
+}

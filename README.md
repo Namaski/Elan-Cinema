@@ -29,7 +29,7 @@ This project follows an MVC\* pattern, with HTTP requests routing arguments thro
 - Enhance the design.
 - Make the website responsive.
 - Create a custom 404 "Page Not Found."
-- Improve the router system.
+- Router system.
 
 
 ## Demo

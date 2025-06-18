@@ -9,7 +9,7 @@ class MovieAdminController
 
 
     ////////SHOW PANEL MOVIE/////////
-    public function showPanelAddMovie()
+    public function showPanelMovie()
     {
         $pdo = Connect::seConnecter();
         $allGenres = $pdo->query(
@@ -24,7 +24,7 @@ class MovieAdminController
         ON r.id_person = p.id_person"
         );
 
-        require "view/admin/addMovie.php";
+        require "view/admin/movie/movie.php";
     }
 
     ////////////////ADD MOVIE//////////////////

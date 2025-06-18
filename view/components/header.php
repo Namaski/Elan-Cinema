@@ -24,7 +24,7 @@
                     </a>
                 </li>
             </ul>
-            <a href="index.php?action=showPanelAddPerson">
+            <a href="index.php?action=showPanelMovie">
                 <img class="admin-logo" src="./public/img/svg/adminLogo1_x2.svg" />
             </a>
 </header>
