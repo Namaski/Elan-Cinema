@@ -17,6 +17,11 @@ class MovieAdminController
             FROM genre g"
         );
 
+        $allMovies = $pdo->query('
+        SELECT m.*, DATE_FORMAT(m.release_date, "%Y") AS date
+        FROM movie m    
+        ');
+
         $allRealisators = $pdo->query(
             "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'realisator', r.id_realisator
         FROM realisator r
@@ -35,7 +40,7 @@ class MovieAdminController
 
         // FILTER DATA
         if (isset($_POST['submit'])) {
-            
+
             $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $release = filter_input(INPUT_POST, "release", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $duration = filter_input(INPUT_POST, "duration", FILTER_SANITIZE_NUMBER_INT);
@@ -134,25 +139,81 @@ class MovieAdminController
     }
 
 
-    ////////SHOW PANEL EDIT MOVIE/////////
-    public function showPanelEditMovie()
+    // EDIT MOVIE
+    public function editMovie(?int $id = null)
     {
+
         $pdo = Connect::seConnecter();
 
-        //    IF THERE IS A SELECTED MOVIE
-        if (isset($_POST['movie'])) {
+        // IF SUBMITED
+        if (isset($_POST['submit'])) {
 
-            $id_movie = filter_input(INPUT_POST, "movie", FILTER_SANITIZE_NUMBER_INT);
+            $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_SPECIAL_CHARS);
+            $realisator = filter_input(INPUT_POST, "realisator", FILTER_VALIDATE_INT);
+            $releaseDate = filter_input(INPUT_POST, "release_date", FILTER_SANITIZE_SPECIAL_CHARS);
+            $duration = filter_input(INPUT_POST, "duration", FILTER_VALIDATE_INT);
+            $synopsis = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_SPECIAL_CHARS);
+            $genres = filter_input(INPUT_POST, "genres", FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
+            // $id_actor = filter_input(INPUT_POST, "actor", FILTER_SANITIZE_NUMBER_INT); // TO DO : EDIT CASTING
+            // $id_role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
+
+
+            if (!$title || !$realisator || !$releaseDate || !$duration || !$genres) {
+                $message = "Tous les champs requis doivent être remplis.";
+                var_dump($message);
+                die;
+                header('Location: index.php?action=editMovie&id=' . $id);
+            }
+
+
+            // UPDATE MOVIE
+            $editMovie =  $pdo->prepare("
+            UPDATE movie
+            SET title = :title,
+            id_realisator = :realisator,
+            release_date = :releaseDate,
+            duration = :duration,
+            synopsis = :synopsis
+            WHERE id_movie = :id
+            ");
+            $editMovie->execute([
+                ':title' => $title,
+                ':realisator' => $realisator,
+                ':releaseDate' => $releaseDate,
+                ':duration' => $duration,
+                ':synopsis' => $synopsis,
+                ':id' => $id
+            ]);
+
+            // UPDATE GENRE MANY TO MANY
+
+            $deleteGenre = $pdo->prepare("DELETE FROM genre_movie WHERE id_movie = :id");
+            $deleteGenre->execute([':id' => $id]);
+
+            $ins = $pdo->prepare("
+            INSERT INTO movie_genre (id_movie, id_genre)
+            VALUES (:id_movie, :id_genre)
+        ");
+
+            // $editCasting = $pdo->prepare(
+            //     "update casting
+            //     ...
+            // );
+
+
+        } elseif ($id) {
+
 
             $showDetailMovie = $pdo->prepare(
-                "SELECT m.title, m.id_movie
+                "SELECT m.*
                 FROM movie m
                 WHERE m.id_movie = :id_movie
                 "
             );
 
+
             $showDetailMovie->execute([
-                ":id_movie" => $id_movie
+                ":id_movie" => $id
             ]);
 
             $allActors = $pdo->query(
@@ -181,55 +242,11 @@ class MovieAdminController
                 FROM genre g"
             );
 
-            require "view/admin/editMovie.php";
+            require "view/admin/movie/editMovie.php";
+        } else {
+
+            header('Location: index.php?action=showPanelMovie');
         }
-        // ELSE GET ALL PERSONS
-        else {
-            $showAllMovies =  $pdo->query(
-                "SELECT m.title , m.id_movie
-                FROM movie m"
-            );
-
-            require "view/admin/editMovie.php";
-        }
-    }
-
-    // EDIT MOVIE
-    public function editMovie()
-    {
-
-        $pdo = Connect::seConnecter();
-        var_dump($_POST);
-        // IF SUBMITED
-        if (isset($_POST['submit'])) {
-            $id_movie = filter_input(INPUT_POST, "movie", FILTER_SANITIZE_NUMBER_INT);
-            $id_actor = filter_input(INPUT_POST, "actor", FILTER_SANITIZE_NUMBER_INT);
-            $id_role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
-
-
-            // ADD Movie
-
-            $addMovie = $pdo->prepare(
-                "INSERT INTO casting (id_movie, id_actor, id_role)
-                VALUES (:id_movie, :id_actor, :id_role)"
-            );
-
-            $addMovie->execute([
-                ':id_movie' => $id_movie,
-                ':id_actor' => $id_actor,
-                ':id_role' => $id_role
-            ]);
-        }
-
-        $allMovies =  $pdo->query(
-            "SELECT m.title , m.id_movie
-                FROM movie m"
-        );
-
-        //UNSET ID_MOVIE TO SELECT NEW MOVIE (MAYBE ADD RETURN BUTTON INSTEAD) 
-        unset($id_movie);
-
-        header('Location: index.php?action=showPanelAddCasting');
     }
 
     ////////SHOW PANEL DELETE MOVIE/////////

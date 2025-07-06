@@ -17,4 +17,12 @@ class HomeController
         require "view/home/index.php";
     }
 
+    public function notFound()
+    {
+        $pdo = Connect::seConnecter();
+        
+
+        require "view/home/notFound.php";
+    }
+
 }

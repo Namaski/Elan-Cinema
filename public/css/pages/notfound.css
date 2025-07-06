@@ -1,0 +1,18 @@
+
+.not-found{
+    margin-top: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.not-found__img{
+    width: 40%;
+    max-width: 400px;
+    min-width: 100px;
+}
+.not-found__text{
+    margin-left: 2%;
+    font-size: 1.5em;
+    text-transform:uppercase;
+    color: white;
+}

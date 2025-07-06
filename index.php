@@ -76,14 +76,13 @@ if (isset($_GET['action'])) {
             $ctrlCastingAdmin->addCasting();
             break;
         case 'editPerson':
-            $ctrlPersonAdmin->editPerson();
+            $ctrlPersonAdmin->editPerson(isset($id) ? $id : null);
             break;
         case 'editMovie':
-            $ctrlMovieAdmin->editMovie();
+            $ctrlMovieAdmin->editMovie(isset($id) ? $id : null);
             break;
         default:
-        $ctrlHome->index();
-        // TODO : 404 PAGE NOT FOUND
+        $ctrlHome->notFound();
     }
 } else {
     $ctrlHome->index();

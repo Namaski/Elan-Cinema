@@ -1,138 +1,85 @@
 <?php ob_start(); ?>
 
-<article class="admin-section">
-    <div class="side-panel">
-        <h4> Admin-Panel</h4>
-
-        <ul>
-            <!-- ADD PERSON -->
-            <li>
-                <a href="index.php?action=showPanelAddPerson">
-                    Add(+) Actor
-                </a>
-                <a href="index.php?action=showPanelAddMovie">
-                    Add(+) Movie
-                </a>
-            </li>
-            <!-- CASTING -->
-            <li>
-                <a href="index.php?action=showPanelAddCasting">
-                    Casting
-                </a>
-            </li>
-            <!-- EDIT -->
-            <li>
-                <a href="index.php?action=showPanelEditPerson">
-                    Edit Person
-                </a>
-                <a href="index.php?action=showPanelEditMovie">
-                    Edit Movie
-                </a>
-
-            </li>
-            <!-- DELETE -->
-            <li>
-                <a href="index.php?action=showPanelDeletePerson">
-                    Delete(-) Person
-                </a>
-                <a href="index.php?action=showPanelDeleteMovie">
-                    Delete(-) Movie
-                </a>
-
-            </li>
-
-        </ul>
-    </div>
-    <!-- FORM -->
-    <div class="admin-panel">
 
 
-        <h4>Edit :</h4>
+<h2 class="admin-content__title">Edit : <?php $movie = $showDetailMovie->fetch();
+                                        echo $movie['title']; ?></h2>
 
-        <!-- FIRST FORM CHOOSE MOVIE (ADD AFTER WITH JS AUTO SEND FORM WITHOUT SUBMIT (SCRIPT.JS) -->
+<form class="admin-form" action="index.php?action=editMovie&id=<?= $movie['id_movie'] ?>" method="post" id="addPerson">
 
-        <?php if (!isset($id_movie)) { ?>
 
-            <form action="index.php?action=showPanelEditMovie" method="post">
-                <label for="movie"> Select the movie casting </label>
+    <input type="hidden" name="movie" value="<?= $movie['id_movie'] //hidden value for movie id    
+                                                ?> ">
 
-                <select name="movie" class="form-select" id="movie">
-                    <option value=""> --Movie-- </option>
-                    <?php foreach ($showAllMovies->fetchAll() as $movie) { ?>
-                        <option value="<?= $movie['id_movie'] ?>">
-                            <?= $movie['title'] ?>
-                        </option>
-                    <?php } ?>
-                    <input type="submit" value="Send">
-                </select>
-            </form>
+    <label for="title">
+        Title
+    </label>
+    <input type="text" placeholder="Title" name=title value="<?= $movie['title'] ?>" />
+
+
+    <label for="realisator">
+        Realisator
+    </label>
+    <select name="realisator" class="admin-form__select">
+        <option disabled>Choose a Realisator</option>
+        <?php foreach ($allRealisators->fetchAll() as $realisator) { ?>
+            <option value="<?= $realisator['id_realisator'] ?>"
+                <?= ($movie['id_realisator'] == $realisator['id_realisator']) ? 'selected' : '' ?>>
+                <?= htmlspecialchars($realisator['realisator']) ?>
+            </option>
 
         <?php } ?>
-
-        <!-- IF MOVIE IS SELECTED -->
-        <?php if (isset($id_movie)) { ?>
-
-            <h4><?php $showMovie = $showDetailMovie->fetch();
-                echo $showMovie['title']; ?></h4>
-
-            <!-- SECOND(FOR NOW) FORM TO EDIT THE SELECTED MOVIE -->
-
-            <form action="index.php?action=editMovie" method="post" id="addPerson">
+    </select>
 
 
-                <!-- HIDDEN VALUE TO SEND THE MOVIE ID -->
-                <input type="hidden" name="movie" value="<?= $showMovie['id_movie'] ?> ">
+    <label for="release"> Release date
+    </label>
+    <input type="date" name="release_date" value="<?= $movie['release_date'] ?>">
 
-                <label for="title"> Title </label>
-                <div>
-                    <input type="text" name="title" value="">
-                </div>
+    <label for="duration">Duration (in minutes)</label>
+    <input
+        type="number"
+        id="duration"
+        name="duration"
+        value="<?= htmlspecialchars($movie['duration']) ?>"
+        min="1"
+        class="admin-form__input" />
 
-                <label for="realisator"> Realisator </label>
-                <select name="realisator" class="form-select">
-                    <option value="" disabled>Realisator</option>
-                    <?php foreach ($allRealisators->fetchAll() as $realisator) { ?>
-                        <option value="<?= $realisator['id_realisator'] ?>">
-                            <?= $realisator['realisator'] ?>
-                        </option>
-                    <?php } ?>
-                </select>
 
-                <div>
-                    <label for="release"> Release</label>
-                    <input type="date" name="release" value="">
-
-                    <label for="duration"> Duration</label>
-                    <input type="number" name="duration" value="">
-
-                    <label for="genre"> Genre </label>
-                    <select name="genre" class="form-select">
-
-                        <option value="" disabled>Genre</option>
-                        <?php foreach ($allGenres->fetchAll() as $genre) { ?>
-                            <option value="<?= $genre['id_genre'] ?>">
-                                <?= $genre['libelle'] ?>
-                            </option>
-                        <?php } ?>
-
-                    </select>
-
-                </div>
-
-                <div>
-                    <label for="synopsis"> Synopsis</label>
-                    <input type="text" name="synopsis" value="">
-                </div>
-
-                <input type="submit" name="submit" value="Send">
-
-            </form>
+    <label for="genres"> Select one or more genres
+    </label>
+    <select name="genres[]" id="genres" class="form-select" multiple>
+        <option value="" disabled>Genre</option>
+        <?php foreach ($allGenres->fetchAll() as $genre) { ?>
+            <option value="<?= $genre['id_genre'] ?>"
+                <?= in_array($genre['id_genre'], $linkedGenres ?? []) ? 'selected' : '' ?>>
+                <?= htmlspecialchars($genre['name']) ?>
+            </option>
         <?php } ?>
-    </div>
+    </select>
 
-</article>
 
-<?php $content = ob_get_clean();
+
+    <label for="synopsis">
+        Synopsis
+    </label>
+    <textarea name="synopsis" id="synopsis"><?= $movie['synopsis'] ?>
+    </textarea>
+
+
+    <button class="yellow" type="sumbit" name="submit" value="send"> Submit</button>
+
+</form>
+
+
+
+
+<?php
+$style = '
+<link rel="stylesheet" href="./public/css/admin/form.css">
+
+';
+
+$content = ob_get_clean();
 
 require "view/admin/template.php";
-
