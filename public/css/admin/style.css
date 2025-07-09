@@ -1,45 +1,58 @@
-* {
-    border: 1px solid white;
+body {
+  background-color: #000814;
 }
+
+header {
+  border-bottom: #ffc300 solid 1px;
+}
+
 main {
-    display: flex;
+  display: flex;
+}
+
+.footer {
+  border-top: #ffc300 1px solid;
 }
 
 .admin-content {
-    flex: 4;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  flex: 4;
 }
 
-.admin-nav{
-    flex: 1;
+.admin-nav {
+  flex: 1;
+  padding-top: 1em;
+  padding-right: 1em;
+  border-right: #ffc300 solid 1px;
 }
 
 .admin-nav-title {
-    font-family: "Stick No Bills", serif;
-    font-weight: 800;
-    font-size: 3em;
-    color: #FFC300;
-    padding-left: 0.5em;
+  font-family: "Stick No Bills", serif;
+  font-weight: 800;
+  font-size: 3em;
+  color: #ffc300;
+  padding-left: 0.5em;
 }
 
 .admin-nav-ul {
-    list-style-type: none;
-    margin-top: 1em;
-    font-size: 2.5em;
+  list-style-type: none;
+  margin-top: 1em;
+  font-size: 2.5em;
 }
 
 .admin-nav-li {
-    padding-left: 0.5em;
-    height: 2em;
-    display: flex;
-    align-items: center;
+  padding-left: 0.5em;
+  height: 2em;
+  display: flex;
+  align-items: center;
 }
 
 .admin-nav-li:hover {
-    background-color: rgba(255, 195, 0, 0.21);
+  background-color: rgba(255, 195, 0, 0.21);
 }
 
 .admin-nav-li img {
-    vertical-align: center;
-    margin-right: 0.5em;
+  vertical-align: center;
+  margin-right: 0.5em;
 }
-

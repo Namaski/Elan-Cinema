@@ -139,7 +139,7 @@ class MovieAdminController
     }
 
 
-    // EDIT MOVIE
+    //////////////// EDIT MOVIE ///////////////////////
     public function editMovie(?int $id = null)
     {
 
@@ -159,9 +159,7 @@ class MovieAdminController
 
 
             if (!$title || !$realisator || !$releaseDate || !$duration || !$genres) {
-                $message = "Tous les champs requis doivent être remplis.";
-                var_dump($message);
-                die;
+                $_SESSION['message'] = 'please all the required fields';
                 header('Location: index.php?action=editMovie&id=' . $id);
             }
 
@@ -190,16 +188,24 @@ class MovieAdminController
             $deleteGenre = $pdo->prepare("DELETE FROM genre_movie WHERE id_movie = :id");
             $deleteGenre->execute([':id' => $id]);
 
-            $ins = $pdo->prepare("
-            INSERT INTO movie_genre (id_movie, id_genre)
-            VALUES (:id_movie, :id_genre)
-        ");
+            foreach ($genres as $genre) {
 
-            // $editCasting = $pdo->prepare(
-            //     "update casting
-            //     ...
-            // );
+                $addGenre = $pdo->prepare("
+                INSERT INTO genre_movie (id_movie, id_genre)
+                VALUES (:id_movie, :id_genre)
+                ");
 
+                $addGenre->execute([
+                    ':id_movie' => $id,
+                    ':id_genre' => $genre
+                ]);
+            };
+
+            $_SESSION['message'] = 'The changes have been saved';
+
+
+            header('Location: index.php?action=editMovie&id=' . $id);
+            exit;
 
         } elseif ($id) {
 
@@ -240,6 +246,17 @@ class MovieAdminController
             $allGenres = $pdo->query(
                 "SELECT g.id_genre, g.name
                 FROM genre g"
+            );
+
+            $genreMovie = $pdo->prepare(
+                "SELECT gm.id_genre, gm.id_movie
+                FROM genre_movie gm
+                WHERE gm.id_movie = :id_movie"
+
+            );
+
+            $genreMovie->execute(
+                [':id_movie' => $id]
             );
 
             require "view/admin/movie/editMovie.php";

@@ -48,16 +48,18 @@
 
     <label for="genres"> Select one or more genres
     </label>
-    <select name="genres[]" id="genres" class="form-select" multiple>
-        <option value="" disabled>Genre</option>
-        <?php foreach ($allGenres->fetchAll() as $genre) { ?>
-            <option value="<?= $genre['id_genre'] ?>"
-                <?= in_array($genre['id_genre'], $linkedGenres ?? []) ? 'selected' : '' ?>>
-                <?= htmlspecialchars($genre['name']) ?>
-            </option>
-        <?php } ?>
-    </select>
-
+        <select name="genres[]" id="genres" multiple>
+            <?php
+            $linkedGenres = $genreMovie->fetchAll();
+            $linkedGenres = array_column($linkedGenres, 'id_genre');
+            var_dump($linkedGenres);
+            foreach($allGenres as $genre) { ?>
+                <option value="<?= $genre['id_genre'] ?>"
+                    <?= in_array($genre['id_genre'], $linkedGenres ?? []) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($genre['name']) ?>
+                </option>
+            <?php } ?>
+        </select>
 
 
     <label for="synopsis">

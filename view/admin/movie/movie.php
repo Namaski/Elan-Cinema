@@ -40,9 +40,9 @@ require_once "view/components/searchbar.php";
                 <?php } ?>
                 </td>
 
-                <td class="table-title-row"><img class="result__list-image" src="<?=$element["picture"] ? $element["picture"] : './public/img/svg/movie-poster.svg' ?>" alt="<?= $element['title'] ?>" onerror="this.src='./public/img/svg/movie-poster.svg'; this.onerror=null;" ></td>
+                <td class="table-image-row"><img class="result__list-image" src="<?=$element["picture"] ? $element["picture"] : './public/img/svg/movie-poster.svg' ?>" alt="<?= $element['title'] ?>" onerror="this.src='./public/img/svg/movie-poster.svg'; this.onerror=null;" ></td>
 
-                <td class="table-image-row"><?= $element["title"] ?> <span><?= "(" . $element["date"] . ")" ?> </td>
+                <td class="table-title-row"><?= $element["title"] ?> <span><?= "(" . $element["date"] . ")" ?> </td>
 
                 <td class="table-actions-row"> <a href="index.php?action=editMovie&id=<?= $element["id_movie"] ?>"> EDIT </a> <a href="index.php?action=deleteMovie&id=<?= $element["id_movie"] ?>"> DELETE </a> </td>
 

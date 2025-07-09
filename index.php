@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use Controller\HomeController;
 use Controller\MovieController;
@@ -56,9 +57,6 @@ if (isset($_GET['action'])) {
             break;
         case 'showPanelCasting':
             $ctrlCastingAdmin->showPanelCasting();
-            break;
-        case 'showPanelEditMovie':
-            $ctrlMovieAdmin->showPanelEditMovie();
             break;
         case 'showPanelDeletePerson':
             $ctrlPersonAdmin->showPanelDeletePerson();

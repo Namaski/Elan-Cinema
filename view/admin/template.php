@@ -1,5 +1,5 @@
 <?php
-
+require "view/components/footer.php";
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
 
 </head>
 
-<body style="background-color: #000814;">
+<body>
 
     <header>
         <a href="index.php">
@@ -65,23 +65,19 @@
         </nav>
         
         <section class="admin-content">
-            <p style="color: white;"> <?=var_dump($message) ?> </p> 
-            
-            <?php if (isset($message)) { ?>
-            <p style="color: white;"> <?=$message ?> </p> 
+            <?php if (isset($_SESSION['message'])) { ?>
+                <p style="color: white; text-align: center;"> <?=htmlspecialchars($_SESSION['message']) ?> </p> 
                 
-            <?php } ?>  
+                <?php unset($_SESSION['message']); } ?>  
+
             <?= $content ?>
+
         </section>
         
     </main>
     
     
-    <div class="footer">
-        <span class="filmopedia">
-            2024 © Filmopedia
-        </span>
-    </div>
+    <?= $footer ?>
     
     
     <?php if (isset($script)) {
