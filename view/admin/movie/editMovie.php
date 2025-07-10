@@ -52,7 +52,6 @@
             <?php
             $linkedGenres = $genreMovie->fetchAll();
             $linkedGenres = array_column($linkedGenres, 'id_genre');
-            var_dump($linkedGenres);
             foreach($allGenres as $genre) { ?>
                 <option value="<?= $genre['id_genre'] ?>"
                     <?= in_array($genre['id_genre'], $linkedGenres ?? []) ? 'selected' : '' ?>>

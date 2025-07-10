@@ -1,107 +1,53 @@
 <?php ob_start(); ?>
 
-<article class="admin-section">
-    <div class="side-panel">
-        <h4> Admin-Panel</h4>
+<h2 class="admin-content__title">Add New Movie</h2>
 
-        <ul>
-            <!-- ADD PERSON -->
-            <li>
-                <a href="index.php?action=showPanelAddPerson">
-                    Add(+) Actor
-                </a>
-                <a href="index.php?action=showPanelAddMovie">
-                    Add(+) Movie
-                </a>
-            </li>
-            <!-- CASTING -->
-            <li>
-                <a href="index.php?action=showPanelAddCasting">
-                    Casting
-                </a>
-            </li>
-            <!-- EDIT -->
-            <li>
-                <a href="index.php?action=showPanelEditPerson">
-                    Edit Person
-                </a>
-                <a href="index.php?action=showPanelEditMovie">
-                    Edit Movie
-                </a>
+<form class="admin-form" action="index.php?action=addMovie" method="post" enctype="multipart/form-data" id="addMovie" >
 
-            </li>
-            <!-- DELETE -->
-            <li>
-                <a href="index.php?action=showPanelDeletePerson">
-                    Delete(-) Person
-                </a>
-                <a href="index.php?action=showPanelDeleteMovie">
-                    Delete(-) Movie
-                </a>
+    <label for="title">Title</label>
+    <input type="text" placeholder="Title" name="title" />
 
-            </li>
+    <label for="realisator">Realisator</label>
+    <select name="realisator" class="admin-form__select" required>
+        <option disabled selected>Choose a Realisator</option>
+        <?php foreach ($allRealisators->fetchAll() as $realisator) { ?>
+            <option value="<?= $realisator['id_realisator'] ?>">
+                <?= htmlspecialchars($realisator['realisator']) ?>
+            </option>
+        <?php } ?>
+    </select>
 
-        </ul>
+    <label for="release_date">Release Date</label>
+    <input type="date" name="release_date" />
 
-    </div>
-    <!-- FORM -->
-    <div class="admin-panel">
-        <h4>Insertion :</h4>
+    <label for="duration">Duration (in minutes)</label>
+    <input type="number" id="duration" name="duration" min="1" class="admin-form__input" />
 
-        <form action="index.php?action=addMovie" method="post" enctype="multipart/form-data" id="addPerson">
+    <label for="genres">Select One or More Genres</label>
+    <select name="genres[]" id="genres" multiple>
+        <?php foreach($allGenres as $genre) { ?>
+            <option value="<?= $genre['id_genre'] ?>">
+                <?= htmlspecialchars($genre['name']) ?>
+            </option>
+        <?php } ?>
+    </select>
 
-            <label for="title"> Title </label>
-            <div>
-                <input type="text" name="title">
-            </div>
+    <label for="synopsis">Synopsis</label>
+    <textarea name="synopsis" id="synopsis"></textarea>
 
-            <label for="realisator"> Realisator </label>
-            <select name="realisator" class="form-select">
-                <option value="" disabled>Realisator</option>
-                <?php foreach ($allRealisators->fetchAll() as $realisator) { ?>
-                    <option value="<?= $realisator['id_realisator'] ?>">
-                        <?= $realisator['realisator'] ?>
-                    </option>
-                <?php } ?>
-            </select>
+    <label for="picture">Movie Poster (JPG, PNG, WEBP only)</label>
+    <input type="file" name="picture" accept="image/*" />
 
-            <label for="picture"> Picture </label>
-            <div>
-                <input type="file" name="picture" id="picture">
-            </div>
 
-            <div>
-                <label for="release"> Release </label>
-                <input type="date" name="release">
+    <button class="yellow" type="submit" name="submit" value="send">Submit</button>
 
-                <label for="duration"> Duration </label>
-                <input type="number" name="duration">
+</form>
 
-                <label for="genre"> Genre </label>
-                <select name="genre" class="form-select">
+<?php
+$style = '
+<link rel="stylesheet" href="./public/css/admin/form.css">
+';
 
-                    <option value="" disabled>Genre</option>
-                    <?php foreach ($allGenres->fetchAll() as $genre) { ?>
-                        <option value="<?= $genre['id_genre'] ?>">
-                            <?= $genre['name'] ?>
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
-
-            <div>
-                <label for="synopsis"> Synopsis
-                </label>
-                <input type="text" name="synopsis">
-            </div>
-
-            <input type="submit" name="submit" value="Send">
-        </form>
-    </div>
-
-</article>
-
-<?php $content = ob_get_clean();
+$content = ob_get_clean();
 
 require "view/admin/template.php";
-

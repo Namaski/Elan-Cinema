@@ -42,61 +42,65 @@ class MovieAdminController
         if (isset($_POST['submit'])) {
 
             $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $release = filter_input(INPUT_POST, "release", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $release = filter_input(INPUT_POST, "release_date", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $duration = filter_input(INPUT_POST, "duration", FILTER_SANITIZE_NUMBER_INT);
-            $synopsis = filter_input(INPUT_POST, "synospsis", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $synopsis = filter_input(INPUT_POST, "synopsis", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $realisator = filter_input(INPUT_POST, "realisator", FILTER_SANITIZE_NUMBER_INT);
-            $genre = filter_input(INPUT_POST, "genre", FILTER_SANITIZE_NUMBER_INT);
+            $genres = filter_input(INPUT_POST, "genres", FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY);
 
-            // var_dump($_POST);
-            // die;
-            // ADD THE IMG 
-            $target_dir = "./public/img/uploads/";
-            $target_file = $target_dir . basename($_FILES["picture"]["name"]);
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            if (!empty($_FILES["picture"]["name"])) {
+                // ADD THE IMG 
+                $target_dir = "./public/img/uploads/";
+                $target_file = $target_dir . basename($_FILES["picture"]["name"]);
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-            // Check if image file is a actual image or fake image
-            $check = getimagesize($_FILES["picture"]["tmp_name"]);
+                // Check if image file is a actual image or fake image
+                $check = getimagesize($_FILES["picture"]["tmp_name"]);
+                $errors = [];
 
-            if ($check == false) {
-                echo "File is not an image.";
-                $uploadOk = 0;
-            }
+                if ($check == false) {
+                    $errors[] = "File is not an image.";
+                    $uploadOk = 0;
+                }
 
-            // Check if file already exists
-            if (file_exists($target_file)) {
-                echo "Sorry, file already exists.";
-                $uploadOk = 0;
-            }
+                // Check if file already exists
+                if (file_exists($target_file)) {
+                    $errors[] = "Sorry, file already exists.";
+                    $uploadOk = 0;
+                }
 
-            // Check file size
-            if ($_FILES["picture"]["size"] > 500000) {
-                echo "Sorry, your file is too large.";
-                $uploadOk = 0;
-            }
+                // Check file size
+                if ($_FILES["picture"]["size"] > 500000) {
+                    $errors[] = "Your file is too large.";
+                    $uploadOk = 0;
+                }
 
-            // Allow certain file formats
-            if (
-                $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                && $imageFileType != "gif"
-            ) {
-                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                $uploadOk = 0;
-            }
+                // Allow certain file formats
+                if (
+                    $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif" && $imageFileType != "webp"
+                ) {
+                    $errors[] = "Only JPG, JPEG, PNG, WEBP & GIF files are allowed.";
+                    $uploadOk = 0;
+                }
 
-            // Check if $uploadOk is set to 0 by an error
-            if ($uploadOk == 0) {
-                echo "Sorry, your file was not uploaded.";
-                // if everything is ok, try to upload file
-            } else {
-                if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
-                    echo "The file " . htmlspecialchars(basename($_FILES["picture"]["name"])) . " has been uploaded.";
+                // Check if $uploadOk is set to 0 by an error
+                if ($uploadOk == 0) {
+                    $_POST['message'] = "Upload failed: " . implode(" ", $errors);
+                    header('Location: index.php?action=addMovie');
+                    exit;
+                    // if everything is ok, try to upload file
                 } else {
-                    echo "Sorry, there was an error uploading your file.";
+                    if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
+                        // $_POST['message'] = "The file " . htmlspecialchars(basename($_FILES["picture"]["name"])) . " has been uploaded.";
+                    } else {
+                        $_POST['message'] = "Sorry, there was an error uploading your file.";
+                        header('Location: index.php?action=addMovie');
+                        exit;
+                    }
                 }
             }
-
             // ADD MOVIE
 
             $addMovie = $pdo->prepare(
@@ -124,18 +128,54 @@ class MovieAdminController
 
             // ADD MOVIE_GENRE
 
-            $addMovie = $pdo->prepare("
-            INSERT INTO genre_movie (id_movie, id_genre)
-            VALUES (:id_movie, :id_genre)
-            ");
+            foreach ($genres as $genre) {
 
-            $addMovie->execute([
-                ":id_movie" => $id["id_movie"],
-                ":id_genre" => $genre
-            ]);
+                $addMovie = $pdo->prepare("
+                INSERT INTO genre_movie (id_movie, id_genre)
+                VALUES (:id_movie, :id_genre)
+                ");
+
+                $addMovie->execute([
+                    ":id_movie" => $id["id_movie"],
+                    ":id_genre" => $genre
+                ]);
+            }
+
+            $_SESSION['message'] = 'The movie has been added';
+
+
+            header('Location: index.php?action=showPanelMovie');
+            exit;
+        } else {
+
+            $allActors = $pdo->query(
+                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'actor', a.id_actor
+                FROM actor a
+                INNER JOIN person p
+                ON a.id_person = p.id_person
+                "
+            );
+
+            $allRoles = $pdo->query(
+                "SELECT r.name, r.id_role
+                FROM role r
+                "
+            );
+
+            $allRealisators = $pdo->query(
+                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'realisator', r.id_realisator
+            FROM realisator r
+            INNER JOIN person p
+            ON r.id_person = p.id_person"
+            );
+
+            $allGenres = $pdo->query(
+                "SELECT g.id_genre, g.name
+                FROM genre g"
+            );
+
+            require 'view/admin/movie/addMovie.php';
         }
-
-        header('Location: index.php?action=showPanelAddMovie');
     }
 
 
@@ -206,7 +246,6 @@ class MovieAdminController
 
             header('Location: index.php?action=editMovie&id=' . $id);
             exit;
-
         } elseif ($id) {
 
 
@@ -266,29 +305,12 @@ class MovieAdminController
         }
     }
 
-    ////////SHOW PANEL DELETE MOVIE/////////
-    public function showPanelDeleteMovie()
-    {
-        $pdo = Connect::seConnecter();
 
-        $showAllMovies =  $pdo->query(
-            "SELECT m.title , m.id_movie
-                FROM movie m"
-        );
 
-        require "view/admin/deleteMovie.php";
-    }
-
-    ////////SHOW PANEL DELETE MOVIE/////////
+    ////////DELETE MOVIE/////////
     public function deleteMovie()
     {
         $pdo = Connect::seConnecter();
 
-        $showAllMovies =  $pdo->query(
-            "SELECT m.title , m.id_movie
-                FROM movie m"
-        );
-
-        require "view/admin/deleteMovie.php";
     }
 }
