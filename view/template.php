@@ -12,9 +12,9 @@ require "view/components/footer.php";
     <title>Filmopédia</title>
     <link rel="stylesheet" href="./public/css/style.css">
     <?php if (isset($style)) {
-        echo($style);
+        echo ($style);
     }  ?>
-    
+
 
     <script defer src="https://kit.fontawesome.com/d80deb4694.js" crossorigin="anonymous"></script>
 
@@ -25,6 +25,11 @@ require "view/components/footer.php";
     <?= $header ?>
 
     <main>
+        <?php if (isset($_SESSION['message'])) { ?>
+            <p style="color: white; text-align: center;"> <?= htmlspecialchars($_SESSION['message']) ?> </p>
+
+        <?php unset($_SESSION['message']);
+        } ?>
         <?= $content ?>
     </main>
 
@@ -33,7 +38,7 @@ require "view/components/footer.php";
 
 
     <?php if (isset($script)) {
-        echo($script);
+        echo ($script);
     }  ?>
 
 </body>

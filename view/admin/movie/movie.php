@@ -26,31 +26,37 @@ require_once "view/components/searchbar.php";
         </thead>
         <tbody class="table-body">
 
-        <?php
-    foreach ($allMovies->fetchall() as $element) {?>
-    
-            <tr>
+            <?php
+            foreach ($allMovies->fetchall() as $element) { ?>
 
-                <td class="table-id-row"><?= $element['id_movie'] ?></td>
+                <tr>
 
-                <td class="table-active-row"><?php if ($element['active']) { ?>
-                    ✓
-                <?php } else { ?>
-                    ✗
-                <?php } ?>
-                </td>
+                    <td class="table-id-row"><?= $element['id_movie'] ?></td>
 
-                <td class="table-image-row"><img class="result__list-image" src="<?=$element["picture"] ? $element["picture"] : './public/img/svg/movie-poster.svg' ?>" alt="<?= $element['title'] ?>" onerror="this.src='./public/img/svg/movie-poster.svg'; this.onerror=null;" ></td>
+                    <td class="table-active-row"><?php if ($element['active']) { ?>
+                            ✓
+                        <?php } else { ?>
+                            ✗
+                        <?php } ?>
+                    </td>
 
-                <td class="table-title-row"><?= $element["title"] ?> <span><?= "(" . $element["date"] . ")" ?> </td>
+                    <td class="table-image-row"><img class="result__list-image" src="<?= $element["picture"] ? $element["picture"] : './public/img/svg/movie-poster.svg' ?>" alt="<?= $element['title'] ?>" onerror="this.src='./public/img/svg/movie-poster.svg'; this.onerror=null;"></td>
 
-                <td class="table-actions-row"> <a href="index.php?action=editMovie&id=<?= $element["id_movie"] ?>"> EDIT </a> <a href="index.php?action=deleteMovie&id=<?= $element["id_movie"] ?>"> DELETE </a> </td>
+                    <td class="table-title-row"><?= $element["title"] ?> <span><?= "(" . $element["date"] . ")" ?> </td>
 
-            </tr>
-      
-    <?php } ?>
+                    <td class="table-actions-row"> <a href="index.php?action=editMovie&id=<?= $element["id_movie"] ?>"> EDIT </a>
 
-            
+                        <form action="index.php?action=deleteMovie" method="POST" class="delete-form" onsubmit="return confirm('Are you sure you want to delete this movie?');">
+                            <input type="hidden" name="id_movie" value="<?= $element['id_movie'] ?>">
+                            <button type="submit" class="link-style-button">DELETE</button>
+                        </form>
+
+
+                </tr>
+
+            <?php } ?>
+
+
 
         </tbody>
     </table>

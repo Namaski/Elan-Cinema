@@ -61,9 +61,6 @@ if (isset($_GET['action'])) {
         case 'showPanelDeletePerson':
             $ctrlPersonAdmin->showPanelDeletePerson();
             break;
-        case 'showPanelDeleteMovie':
-            $ctrlMovieAdmin->showPanelDeleteMovie();
-            break;
         case 'addPerson':
             $ctrlPersonAdmin->addPerson();
             break;
@@ -78,6 +75,9 @@ if (isset($_GET['action'])) {
             break;
         case 'editMovie':
             $ctrlMovieAdmin->editMovie(isset($id) ? $id : null);
+            break;
+        case 'deleteMovie':
+            $ctrlMovieAdmin->deleteMovie();
             break;
         default:
         $ctrlHome->notFound();

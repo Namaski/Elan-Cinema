@@ -53,14 +53,14 @@ class MovieAdminController
                 $target_dir = "./public/img/uploads/";
                 $target_file = $target_dir . basename($_FILES["picture"]["name"]);
                 $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                $pictureFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-                // Check if image file is a actual image or fake image
-                $check = getimagesize($_FILES["picture"]["tmp_name"]);
+                // Check if picture file is a actual picture or fake picture
+                $check = getpicturesize($_FILES["picture"]["tmp_name"]);
                 $errors = [];
 
                 if ($check == false) {
-                    $errors[] = "File is not an image.";
+                    $errors[] = "File is not an picture.";
                     $uploadOk = 0;
                 }
 
@@ -78,8 +78,8 @@ class MovieAdminController
 
                 // Allow certain file formats
                 if (
-                    $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                    && $imageFileType != "gif" && $imageFileType != "webp"
+                    $pictureFileType != "jpg" && $pictureFileType != "png" && $pictureFileType != "jpeg"
+                    && $pictureFileType != "gif" && $pictureFileType != "webp"
                 ) {
                     $errors[] = "Only JPG, JPEG, PNG, WEBP & GIF files are allowed.";
                     $uploadOk = 0;
@@ -311,6 +311,41 @@ class MovieAdminController
     public function deleteMovie()
     {
         $pdo = Connect::seConnecter();
+        
+        if (isset($_POST['id_movie']) && is_numeric($_POST['id_movie'])) {
+            $id_movie = (int)$_POST['id_movie'];
 
+            // DELETE PICTURE
+            $stmt = $pdo->prepare("SELECT picture FROM movie WHERE id_movie = :id");
+            $stmt->execute([':id' => $id_movie]);
+            $movie = $stmt->fetch();
+
+            if ($movie && !empty($movie['picture'])) {
+                $picturePath = "./public/img/uploads/" . $movie['picture'];
+                if (file_exists($picturePath)) {
+                    unlink($picturePath); // supprime le fichier picture
+                }
+            }
+
+            // DELETE GENRE
+            $delGenres = $pdo->prepare("DELETE FROM genre_movie WHERE id_movie = :id");
+            $delGenres->execute([':id' => $id_movie]);
+
+            // TODO DELETE CASTING
+
+            // DELETE MOVIE
+            $delMovie = $pdo->prepare("DELETE FROM movie WHERE id_movie = :id");
+            $delMovie->execute([':id' => $id_movie]);
+
+
+            $_POST['message'] = "The movie has been successfully deleted.";
+            header('Location: index.php?action=showPanelMovie');
+            exit;
+        } else {
+            $_POST['message'] = "Invalid or missing movie ID.";
+            header('Location: index.php?action=showPanelMovie');
+            exit;
+        }
     }
+
 }
