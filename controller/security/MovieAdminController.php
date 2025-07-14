@@ -56,7 +56,7 @@ class MovieAdminController
                 $pictureFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
                 // Check if picture file is a actual picture or fake picture
-                $check = getpicturesize($_FILES["picture"]["tmp_name"]);
+                $check = getimagesize($_FILES["picture"]["tmp_name"]);
                 $errors = [];
 
                 if ($check == false) {

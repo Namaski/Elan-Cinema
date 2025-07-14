@@ -15,9 +15,6 @@ require "view/components/footer.php";
         echo ($style);
     }  ?>
 
-
-    <script defer src="https://kit.fontawesome.com/d80deb4694.js" crossorigin="anonymous"></script>
-
 </head>
 
 <body>

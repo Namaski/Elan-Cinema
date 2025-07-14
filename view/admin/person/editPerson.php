@@ -1,140 +1,42 @@
 <?php ob_start(); ?>
 
-<article class="admin-section">
+<h2 class="admin-content__title">Edit : <?= htmlspecialchars($person['first_name'] . ' ' . $person['last_name']) ?></h2>
 
-    <!-- ADMIN SIDE PANEL -->
-    <div class="side-panel">
-        <h4> Admin-Panel</h4>
+<form class="admin-form" action="index.php?action=editPerson&id=<?= $person['id_person'] ?>" method="post" enctype="multipart/form-data">
 
-        <ul>
-            <!-- ADD PERSON -->
-            <li>
-                <a href="index.php?action=showPanelAddPerson">
-                    Add(+) Actor
-                </a>
-                <a href="index.php?action=showPanelAddMovie">
-                    Add(+) Movie
-                </a>
-            </li>
-            <!-- CASTING -->
-            <li>
-                <a href="index.php?action=showPanelAddCasting">
-                    Casting
-                </a>
-            </li>
-            <!-- EDIT -->
-            <li>
-                <a href="index.php?action=showPanelEditPerson">
-                    Edit Person
-                </a>
-                <a href="index.php?action=showPanelEditMovie">
-                    Edit Movie
-                </a>
+    <input type="hidden" name="id_person" value="<?= $person['id_person'] ?>">
 
-            </li>
-            <!-- DELETE -->
-            <li>
-                <a href="index.php?action=showPanelDeletePerson">
-                    Delete(-) Person
-                </a>
-                <a href="index.php?action=showPanelDeleteMovie">
-                    Delete(-) Movie
-                </a>
+    <label for="first_name">First Name</label>
+    <input type="text" name="first_name" value="<?= htmlspecialchars($person['first_name']) ?>" required>
 
-            </li>
+    <label for="last_name">Last Name</label>
+    <input type="text" name="last_name" value="<?= htmlspecialchars($person['last_name']) ?>" required>
 
-        </ul>
+    <label for="birthdate">Birthdate</label>
+    <input type="date" name="birthdate" value="<?= $person['birthdate_formatted'] ?>" required>
 
+    <label for="sex">Sex</label>
+    <select name="sex" class="admin-form__select" required>
+        <option disabled >Select sex</option>
+        <option value="F" <?= $person['sex'] === 'Female' ? 'selected' : '' ?>>Female</option>
+        <option value="M" <?= $person['sex'] === 'Male' ? 'selected' : '' ?>>Male</option>
+    </select>
+
+    <label for="picture">Profile Picture</label>
+    <input type="file" name="picture" accept="image/*">
+
+    <label>Roles</label>
+    <div class="admin-form__checkbox-group">
+        <label><input type="checkbox" name="is_actor" value="1" <?= $is_actor ? 'checked' : '' ?>> Actor</label>
+        <label><input type="checkbox" name="is_realisator" value="1" <?= $is_realisator ? 'checked' : '' ?>> Realisator</label>
     </div>
 
-    <!-- FORM -->
-    <div class="admin-panel">
+    <button class="yellow" type="submit" name="submit" value="send">Submit</button>
 
+</form>
 
-        <h4>Edit :</h4>
-
-        <!-- I SHOULD PUT A LIST OF ACTOR AND DIRECTOR INSTEAD OF PERSON LIST IN THE FUTURE -->
-        <?php if (!isset($id_person)) { ?>
-
-            <form action="index.php?action=showPanelEditPerson" method="post">
-                <label for="person"> Select the person</label>
-
-                <select name="person" class="form-select" id="person">
-                    <option value=""> --Person-- </option>
-                    <?php foreach ($showAllPersons->fetchAll() as $person) { ?>
-                        <option value="<?= $person['id_person'] ?>">
-                            <?= $person['person'] ?>
-                        </option>
-                    <?php } ?>
-                    <input type="submit" value="Send">
-                </select>
-            </form>
-
-        <?php } ?>
-
-        <!-- IF PERSON IS SELECTED -->
-        <?php if (isset($id_person)) { ?>
-
-            <h4><?php $person = $showPerson->fetch();
-                echo $person['person']; ?></h4>
-
-
-            <!-- SECOND(FOR NOW) FORM TO EDIT SELECTED PERSON -->
-
-            <form action="index.php?action=editPerson" method="post" id="addPerson">
-
-                <!-- HIDDEN VALUE TO SEND THE PERSON ID -->
-                <input type="hidden" name="id_person" value="<?= $person['id_person'] ?> ">
-
-                <div class="radioForm">
-
-                    <div>
-                        <label for="actor"> Actor </label>
-                        <input type="checkbox" name="actor" value="1">
-                    </div>
-
-                    <div>
-                        <label for="director"> Director </label>
-                        <input type="checkbox" name="director" value="1">
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        <label for="firstName"> Firstname </label>
-                        <input type="text" name="firstname" value="">
-                    </div>
-                    <div>
-                        <label for="lastName"> Lastname </label>
-                        <input type="text" name="lastname" value="">
-                    </div>
-                </div>
-
-                <label for="birthdate"> Birthdate</label>
-
-                <input type="date" name="birthdate" value="">
-
-                <div class="radioForm">
-                    <div>
-                        <label for="sex"> Female </label>
-                        <input type="radio" name="sex" value="Female">
-                    </div>
-
-                    <div>
-                        <label for="sex"> Male </label>
-                        <input type="radio" name="sex" value="Male">
-                    </div>
-                </div>
-
-                <input type="submit" name="submit" value="Send">
-
-            </form>
-        <?php } ?>
-    </div>
-
-</article>
-
-<?php $content = ob_get_clean();
-
+<?php
+$style = '<link rel="stylesheet" href="./public/css/admin/form.css">';
+$content = ob_get_clean();
 require "view/admin/template.php";
-
+?>

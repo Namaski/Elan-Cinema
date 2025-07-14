@@ -10,6 +10,25 @@ class PersonAdminController
     ////////SHOW PANEL PERSON/////////
     public function showPanelPerson()
     {
+        $pdo = Connect::seConnecter();
+        $allPerson = $pdo->query(
+            "SELECT 
+        p.id_person,
+        CONCAT(p.first_name, ' ', p.last_name) AS 'name',
+        p.birthdate,
+        p.picture,
+        p.sex,
+            CASE 
+                WHEN r.id_realisator IS NOT NULL AND a.id_actor IS NOT NULL THEN 'Realisator & Actor'
+                WHEN r.id_realisator IS NOT NULL THEN 'Realisator'
+                WHEN a.id_actor IS NOT NULL THEN 'Actor'
+                ELSE 'None'
+            END AS type
+        FROM person p
+        LEFT JOIN realisator r ON p.id_person = r.id_person
+        LEFT JOIN actor a ON p.id_person = a.id_person"
+        );
+
         require "view/admin/person/person.php";
     }
 
@@ -17,169 +36,251 @@ class PersonAdminController
     ////////////////ADD PERSON//////////////////
     public function addPerson()
     {
-        // FILTER DATA
+        $pdo = Connect::seConnecter();
+
         if (isset($_POST['submit'])) {
-            $first_name = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $last_name = filter_input(INPUT_POST, "lastname", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $birthdate = filter_input(INPUT_POST, "birthdate", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $sex = filter_input(INPUT_POST, "sex", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $actorOrDirector = filter_input(INPUT_POST, "actorOrDirector", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $birthdate = filter_input(INPUT_POST, 'birthdate', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $sex = filter_input(INPUT_POST, 'sex', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            //  ADD PERSON
-            $pdo = Connect::seConnecter();
-            $addPerson = $pdo->prepare(
-                "INSERT INTO person (firstname, lastname, birthday_date, sex)
-                VALUES (:first_name, :last_name, :birthdate, :sex)"
-            );
+            $picture = null;
 
-            $addPerson->execute([
+            if (!empty($_FILES["picture"]["name"])) {
+                $target_dir = "./public/img/uploads/";
+                $file_name = basename($_FILES["picture"]["name"]);
+                $target_file = $target_dir . $file_name;
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                $uploadOk = 1;
+                $errors = [];
+
+                $check = getimagesize($_FILES["picture"]["tmp_name"]);
+                if ($check === false) {
+                    $errors[] = "File is not an image.";
+                    $uploadOk = 0;
+                }
+
+                if (file_exists($target_file)) {
+                    $errors[] = "File already exists.";
+                    $uploadOk = 0;
+                }
+
+                if ($_FILES["picture"]["size"] > 500000) {
+                    $errors[] = "File is too large.";
+                    $uploadOk = 0;
+                }
+
+                if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                    $errors[] = "Invalid image format.";
+                    $uploadOk = 0;
+                }
+
+                if ($uploadOk === 1) {
+                    if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
+                        $picture = $target_file;
+                    } else {
+                        $_POST['message'] = "Error uploading the file.";
+                        return;
+                    }
+                } else {
+                    $_POST['message'] = "Image upload failed: " . implode(" ", $errors);
+                    return;
+                }
+            }
+
+            $stmt = $pdo->prepare("INSERT INTO person (first_name, last_name, birthdate, sex, picture)
+                               VALUES (:first_name, :last_name, :birthdate, :sex, :picture)");
+            $stmt->execute([
                 ':first_name' => $first_name,
                 ':last_name' => $last_name,
                 ':birthdate' => $birthdate,
-                ':sex' => $sex
+                ':sex' => $sex,
+                ':picture' => $picture
             ]);
 
-            // GET PERSON ID
+            // GET LAST ID
+            $id_person = $pdo->lastInsertId();
 
-            $getId = $pdo->query(
-                "SELECT p.id_person
-                FROM person p 
-                WHERE p.id_person = LAST_INSERT_ID();"
-            );
-
-            $id = $getId->fetch();
-
-            // ADD ACTOR OR DIRECTOR
-            if ($actorOrDirector === "Actor") {
-
-                $addPerson = $pdo->prepare("
-                INSERT INTO actor (id_person)
-                VALUES (:id_person)
-                ");
-
-                $addPerson->execute(
-                    [":id_person" => $id["id_person"]]
-                );
-            } else {
-                $addPerson = $pdo->prepare("
-                INSERT INTO realisator (id_person)
-                VALUES (:id_person)
-                ");
-
-                $addPerson->execute(
-                    [":id_person" => $id["id_person"]]
-                );
+    
+            if (!empty($_POST['is_actor'])) {
+                $stmt = $pdo->prepare("INSERT INTO actor (id_person) VALUES (:id_person)");
+                $stmt->execute([':id_person' => $id_person]);
             }
+
+      
+            if (!empty($_POST['is_realisator'])) {
+                $stmt = $pdo->prepare("INSERT INTO realisator (id_person) VALUES (:id_person)");
+                $stmt->execute([':id_person' => $id_person]);
+            }
+
+            $_POST['message'] = "The person has been successfully added.";
         }
 
-        header('Location: index.php?action=showPanelAddPerson');
+        require "view/admin/person/addPerson.php";
     }
 
-
-    ////////SHOW PANEL EDIT PERSON/////////
-    public function showPanelEditPerson()
+    ///////////EDIT PERSON/////////
+    public function editPerson(?int $id = null)
     {
         $pdo = Connect::seConnecter();
 
-        //    IF THERE IS A SELECTED PERSON
-        if (isset($_POST['person'])) {
-
-            $id_person = filter_input(INPUT_POST, "person", FILTER_SANITIZE_NUMBER_INT);
-
-            // SHOW PERSON SELECTED
-            $showPerson = $pdo->prepare(
-                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'person', p.id_person
-                FROM person p
-                WHERE p.id_person = :id_person"
-
-            );
-
-            $showPerson->execute([
-                ":id_person" => $id_person
-            ]);
-
-            require "view/admin/editPerson.php";
-        }
-        // ELSE GET ALL PERSONS
-        else {
-            // ALL PERSON LIST
-            $showAllPersons = $pdo->query(
-                "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'person', p.id_person
-                FROM person p"
-            );
-
-            require "view/admin/editPerson.php";
-        }
-    }
-
-    ////////////////EDIT PERSON//////////////////
-    public function editPerson()
-    {
-
-        $pdo = Connect::seConnecter();
-
-        // if ($_POST['firstName'] === '') {
-        //     unset($_POST['firstName']);    
-        // }
-        // if ( $_POST['lastName'] === '') {
-        //     unset( $_POST['lastName']);    
-        // }
-        if ($_POST['birthdate'] === '') {
-            unset($_POST['birthdate']);
-        }
-        // if ($_POST['sex'] === '') {
-        //     unset($_POST['sex']);    
-        // }
-
-        // FILTER DATA
+        // IF SUBMITTED
         if (isset($_POST['submit'])) {
-            $id_movie = filter_input(INPUT_POST, "movie", FILTER_SANITIZE_NUMBER_INT);
-            $id_actor = filter_input(INPUT_POST, "actor", FILTER_SANITIZE_NUMBER_INT);
-            $id_role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_NUMBER_INT);
+            $first_name = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $last_name = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $birthdate = filter_input(INPUT_POST, 'birthdate', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $sex = filter_input(INPUT_POST, 'sex', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $id_person = filter_input(INPUT_POST, 'id_person', FILTER_SANITIZE_NUMBER_INT);
 
+            if (!$first_name || !$last_name || !$birthdate || !$sex) {
+                $_SESSION['message'] = 'Please fill all the required fields';
+                header('Location: index.php?action=editPerson&id=' . $id_person);
+                exit;
+            }
 
-            // ADD PERSON
+            $picture = null;
 
-            $addMovie = $pdo->prepare(
-                "INSERT INTO casting (id_movie, id_actor, id_role)
-                VALUES (:id_movie, :id_actor, :id_role)"
+            if (!empty($_FILES["picture"]["name"])) {
+                $target_dir = "./public/img/uploads/";
+                $file_name = basename($_FILES["picture"]["name"]);
+                $target_file = $target_dir . $file_name;
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+                $uploadOk = 1;
+                $errors = [];
+
+                $check = getimagesize($_FILES["picture"]["tmp_name"]);
+                if ($check === false) {
+                    $errors[] = "File is not an image.";
+                    $uploadOk = 0;
+                }
+
+                if (file_exists($target_file)) {
+                    $errors[] = "File already exists.";
+                    $uploadOk = 0;
+                }
+
+                if ($_FILES["picture"]["size"] > 500000) {
+                    $errors[] = "File is too large.";
+                    $uploadOk = 0;
+                }
+
+                if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                    $errors[] = "Invalid image format.";
+                    $uploadOk = 0;
+                }
+
+                if ($uploadOk === 1) {
+                    if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
+                        $picture = $target_file;
+                    } else {
+                        $_SESSION['message'] = "Error uploading the file.";
+                        header('Location: index.php?action=editPerson&id=' . $id_person);
+                        exit;
+                    }
+                } else {
+                    $_SESSION['message'] = "Image upload failed: " . implode(" ", $errors);
+                    header('Location: index.php?action=editPerson&id=' . $id_person);
+                    exit;
+                }
+            }
+
+            if ($picture) {
+                $stmt = $pdo->prepare("UPDATE person SET first_name = :first_name, last_name = :last_name, 
+                                     birthdate = :birthdate, sex = :sex, picture = :picture 
+                                     WHERE id_person = :id_person");
+                $stmt->execute([
+                    ':first_name' => $first_name,
+                    ':last_name' => $last_name,
+                    ':birthdate' => $birthdate,
+                    ':sex' => $sex,
+                    ':picture' => $picture,
+                    ':id_person' => $id_person
+                ]);
+            } else {
+                $stmt = $pdo->prepare("UPDATE person SET first_name = :first_name, last_name = :last_name, 
+                                     birthdate = :birthdate, sex = :sex 
+                                     WHERE id_person = :id_person");
+                $stmt->execute([
+                    ':first_name' => $first_name,
+                    ':last_name' => $last_name,
+                    ':birthdate' => $birthdate,
+                    ':sex' => $sex,
+                    ':id_person' => $id_person
+                ]);
+            }
+
+           
+            $pdo->prepare("DELETE FROM actor WHERE id_person = :id_person")->execute([':id_person' => $id_person]);
+            $pdo->prepare("DELETE FROM realisator WHERE id_person = :id_person")->execute([':id_person' => $id_person]);
+
+            
+            if (!empty($_POST['is_actor'])) {
+                $pdo->prepare("INSERT INTO actor (id_person) VALUES (:id_person)")->execute([':id_person' => $id_person]);
+            }
+
+            if (!empty($_POST['is_realisator'])) {
+                $pdo->prepare("INSERT INTO realisator (id_person) VALUES (:id_person)")->execute([':id_person' => $id_person]);
+            }
+
+            $_SESSION['message'] = "The person has been successfully updated.";
+            header('Location: index.php?action=editPerson&id=' . $id_person);
+            exit;
+
+        } elseif ($id) {
+            
+            $stmt = $pdo->prepare(
+                "SELECT p.*, 
+                        DATE_FORMAT(p.birthdate, '%Y-%m-%d') AS birthdate_formatted,
+                        CASE WHEN a.id_actor IS NOT NULL THEN 1 ELSE 0 END AS is_actor,
+                        CASE WHEN r.id_realisator IS NOT NULL THEN 1 ELSE 0 END AS is_realisator
+                 FROM person p
+                 LEFT JOIN actor a ON p.id_person = a.id_person
+                 LEFT JOIN realisator r ON p.id_person = r.id_person
+                 WHERE p.id_person = :id_person"
             );
+            
+            $stmt->execute([':id_person' => $id]);
+            $person = $stmt->fetch();
 
-            $addMovie->execute([
-                ':id_movie' => $id_movie,
-                ':id_actor' => $id_actor,
-                ':id_role' => $id_role
-            ]);
+            if (!$person) {
+                header('Location: index.php?action=showPanelPerson');
+                exit;
+            }
+
+            $is_actor = $person['is_actor'];
+            $is_realisator = $person['is_realisator'];
+
+            require "view/admin/person/editPerson.php";
+
+        } else {
+            // NO ID PROVIDED, REDIRECT TO PERSON PANEL
+            header('Location: index.php?action=showPanelPerson');
+            exit;
         }
-
-        $allMovies =  $pdo->query(
-            "SELECT m.title , m.id_movie
-                FROM movie m"
-        );
-
-        //UNSET ID_MOVIE TO SELECT NEW MOVIE (MAYBE ADD RETURN BUTTON INSTEAD) 
-        unset($id_movie);
-
-        header('Location: index.php?action=showPanelAddCasting');
     }
 
-
-    ////////SHOW PANEL DELETE PERSON/////////
-    public function showPanelDeletePerson()
+    ///////////DELETE PERSON/////////
+    public function deletePerson(int $id)
     {
         $pdo = Connect::seConnecter();
 
-        $showAllPersons = $pdo->query(
-            "SELECT CONCAT(p.first_name, ' ', p.last_name) AS 'person', p.id_person
-                FROM person p
-                LEFT JOIN realisator r
-                ON p.id_person = r.id_person
-                LEFT JOIN movie m
-                ON r.id_realisator = m.id_realisator
-                WHERE m.id_realisator IS NULL 
-                "
-        );
+        
+        $stmt = $pdo->prepare("SELECT * FROM person WHERE id_person = :id_person");
+        $stmt->execute([':id_person' => $id]);
+        $person = $stmt->fetch();
 
-        require "view/admin/deletePerson.php";
+        if (!$person) {
+            $_SESSION['message'] = "Person not found.";
+            header('Location: index.php?action=showPanelPerson');
+            exit;
+        }
+
+        // DELETE PERSON
+        $stmt = $pdo->prepare("DELETE FROM person WHERE id_person = :id_person");
+        $stmt->execute([':id_person' => $id]);
+
+        $_SESSION['message'] = "The person has been successfully deleted.";
+        header('Location: index.php?action=showPanelPerson');
+        exit;
     }
 }
